@@ -2,6 +2,9 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
@@ -13,6 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Dimension;
 
@@ -29,8 +34,7 @@ public class GUI extends JFrame  implements ActionListener {
 	private JLabel lblNewLabel,lblUsuario;
 	private JButton btnRegistrar;
 
-	
-	private Dimension dimension;
+	private Connection con;
 	/**
 	 * Launch the application.
 	 */
@@ -102,19 +106,18 @@ public class GUI extends JFrame  implements ActionListener {
 		// TODO Auto-generated method stub
 		String usr;
 		Registrar reg;
-		
-		
-		if(e.getSource()==btnIniciar){
-			//hacer la conexion con la bd y mostrar la siguiente vista validar el inicio de sesion
-			usr= user.getText();
-			String pass=new String( passwordField.getPassword());
-			Chocolatera Chc=new Chocolatera(this);
 			
+		if(e.getSource()==btnIniciar){
+			//hace la conexion con la bd falta validar si es usuario con privilegios o no lo hare mas tarde ! 
+			String pass=new String( passwordField.getPassword());
+			usr= user.getText();
+			if(conection("localhost","5432",usr,pass,"proyectobd")){
+				
+				Chocolatera Chc=new Chocolatera(this);
 				Chc.setVisible(true);
 				Chc.Privilegios(1);/// si no es 1 es usuario normal validar esta parte cuando el usuario inicie de session
-			
-			Chc.setVisible(true);
-			
+				
+			}//end if
 		}//end if
 		
 		if(e.getSource()==btnCancelar){
@@ -135,6 +138,35 @@ public class GUI extends JFrame  implements ActionListener {
 		}//end if
 		
 		
-	}
+	}//end actionPerformed
+	/*
+	 * hace la conexion con la bd
+	 * */
+	private boolean conection(String servidor,String puerto,String usuario,String contrasena,String database){
+		
+		boolean  band=false;
+		String url;
+		try{
+			//metodo para cargar el driver
+			url="jdbc:postgresql://" + servidor + ":" + puerto + "/" + database;
+			try {
+				Class.forName("org.postgresql.Driver");
+				con=DriverManager.getConnection(url, usuario, contrasena);
+				band=true;
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}catch(SQLException e){
+			
+			JOptionPane.showMessageDialog(null, JOptionPane.ERROR_MESSAGE,"No se pudo hacer conexion con la base de datos", JOptionPane.ERROR_MESSAGE);
+			
+		}//end try-catch
+		
+		
+		return band;
+	}//end conection
 }
 
