@@ -22,29 +22,47 @@ import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.DropMode;
 import java.awt.List;
 import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.JLabel;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 
-public class Chocolatera<Gridlayout> extends JFrame implements ActionListener{
+import java.awt.Color;
+import java.awt.Component;
+
+import javax.swing.JLabel;
+import javax.swing.border.EtchedBorder;
+import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+
+public class Chocolatera extends JFrame implements ActionListener{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel panelMenu,panel;
-	private JButton btnAgregar,btnEliminar,btnConsultar,btnAceptar,btnCancelar;
+	private JButton btnMostrarT,btnEliminar,btnConsultar,btnAceptar,btnCancelar;
 	private boolean band=false;
 	private JButton btnSalir,btnCerrarSesion;
-	GUI g;
 	private JButton btnRegistrar;
-	private JTextField textField;
+	GUI g;
+	
+	@SuppressWarnings("rawtypes")
+	private DefaultListModel modelolist;
+	private JScrollPane scrollPane;
+	@SuppressWarnings("rawtypes")
+	private JList list;
+ 
 	/**
 	 * Launch the application.
 	 */
@@ -62,6 +80,8 @@ public class Chocolatera<Gridlayout> extends JFrame implements ActionListener{
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
+	@SuppressWarnings("rawtypes")
 	private void initialize() {
 		
 		this.setTitle("Chocolatera");
@@ -74,10 +94,10 @@ public class Chocolatera<Gridlayout> extends JFrame implements ActionListener{
 		getContentPane().add(panelMenu);
 		panelMenu.setLayout(null);
 		
-		 btnAgregar = new JButton("Agregar");
-		 btnAgregar.addActionListener(this);
-		btnAgregar.setBounds(10, 0, 89, 23);
-		panelMenu.add(btnAgregar);
+		 btnMostrarT = new JButton("Mostrar Tablas");
+		 btnMostrarT.addActionListener(this);
+		btnMostrarT.setBounds(10, 0, 103, 23);
+		panelMenu.add(btnMostrarT);
 		
 		 btnEliminar = new JButton("Eliminar");
 		 btnEliminar.addActionListener(this);
@@ -119,19 +139,25 @@ public class Chocolatera<Gridlayout> extends JFrame implements ActionListener{
 		btnCerrarSesion.setBounds(366, 295, 128, 23);
 		panel.add(btnCerrarSesion);
 		
-		textField = new JTextField();
-		textField.setBounds(10, 11, 612, 273);
-		panel.add(textField);
-		textField.setColumns(10);
+		 scrollPane = new JScrollPane();
+		scrollPane.setViewportBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		scrollPane.setBounds(10, 11, 612, 273);
+		panel.add(scrollPane);
+		
+		 list = new JList();
+		
+		scrollPane.setViewportView(list);
 	}
+	
 
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		ResultSet rs;
 		Statement st;
-		
-		if(e.getSource()==btnCerrarSesion){
+				if(e.getSource()==btnCerrarSesion){
 			
 			if(g.cerrarConexion()){
 				this.removeAll();
@@ -144,7 +170,8 @@ public class Chocolatera<Gridlayout> extends JFrame implements ActionListener{
 		}//end if
 		
 		if(e.getSource()==btnCancelar){
-			
+			modelolist.removeAllElements();
+			list.setVisible(false);
 			this.paint(getGraphics());
 		}//end if
 		
@@ -157,20 +184,26 @@ public class Chocolatera<Gridlayout> extends JFrame implements ActionListener{
 			
 		}//end if
 		
-		if(e.getSource()==btnAgregar){
+		if(e.getSource()==btnMostrarT){
 			
 			try {
+				
+				modelolist=new DefaultListModel();
+				list.setCellRenderer(new CheckboxListCellRenderer());
+				 list.setModel(modelolist);
 				st=g.GetConnection().createStatement();
 				rs=st.executeQuery("SELECT tablename FROM pg_tables where schemaname='bd'");
 				rs.next();
-				
-				
-				while (!(rs.isLast())){
 					
-					textField.setText(rs.getString(1));
+				while (!(rs.isLast())){
+					modelolist.addElement(rs.getString(1));
+					
 					rs.next();
+					
 				}//end while*/
-				textField.setText(rs.getString(1));
+				modelolist.addElement(rs.getString(1));
+			
+				list.setVisible(true);
 				this.paint(getGraphics());
 				
 			} catch (SQLException e1) {
@@ -204,18 +237,19 @@ public class Chocolatera<Gridlayout> extends JFrame implements ActionListener{
 		}//end if
 	}
 	
+	
 	// TODO procedimiento que muestra las vistas segun el privilegio del usuario 1 administrador 2 normal
 	public void Privilegios(int tipo){
 		
 		if(tipo==1){
-			btnAgregar.setEnabled(true);
+			btnMostrarT.setEnabled(true);
 			btnEliminar.setEnabled(true);
 			btnConsultar.setEnabled(true);
 		}else{
 			
-			btnAgregar.setEnabled(false);
+			btnMostrarT.setEnabled(false);
 			btnEliminar.setEnabled(false);
-			btnAgregar.setVisible(false);
+			btnMostrarT.setVisible(false);
 			btnEliminar.setVisible(false);
 			btnConsultar.setEnabled(true);
 			
@@ -258,3 +292,7 @@ public class Chocolatera<Gridlayout> extends JFrame implements ActionListener{
 		g.setVisible(true);
 	}//edn MostrarGUI
 }
+
+
+
+
