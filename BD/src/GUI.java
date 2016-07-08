@@ -32,7 +32,7 @@ public class GUI extends JFrame  implements ActionListener {
 	private JPanel InicioPanel;
 	private JButton btnIniciar, btnCancelar;
 	private JLabel lblNewLabel,lblUsuario;
-	private JButton btnRegistrar;
+	private JButton btnCerrar;
 
 	private Connection con;
 	/**
@@ -93,10 +93,10 @@ public class GUI extends JFrame  implements ActionListener {
 		lblUsuario.setBounds(78, 53, 46, 14);
 		InicioPanel.add(lblUsuario);
 		
-		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(276, 151, 89, 23);
-		InicioPanel.add(btnRegistrar);
+		btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(this);
+		btnCerrar.setBounds(276, 151, 89, 23);
+		InicioPanel.add(btnCerrar);
 		
 	}
 
@@ -104,19 +104,20 @@ public class GUI extends JFrame  implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		String usr;
-		Registrar reg;
+		String pass;
 			
 		if(e.getSource()==btnIniciar){
 			//hace la conexion con la bd falta validar si es usuario con privilegios o no lo hare mas tarde ! 
-			String pass=new String( passwordField.getPassword());
-			usr= user.getText();
-			if(conection("localhost","5432",usr,pass,"proyectobd")){
+			
+			 pass= new String(passwordField.getPassword());
+			
+			if(conection("localhost","5432",user.getText(),pass,"proyectobd")){
 				
 				Chocolatera Chc=new Chocolatera(this);
 				Chc.setVisible(true);
 				Chc.Privilegios(1);/// si no es 1 es usuario normal validar esta parte cuando el usuario inicie de session
-				
+				passwordField.setText(null);
+				pass=null;
 			}//end if
 		}//end if
 		
@@ -129,11 +130,10 @@ public class GUI extends JFrame  implements ActionListener {
 				
 		}//end if
 		
-		if(e.getSource()==btnRegistrar){
+		if(e.getSource()==btnCerrar){
 			
-			//registrar un usuario segun el tipo 
-			reg=new Registrar(this);
-			reg.setVisible(true);
+			//cerrar programa
+			System.exit(0);
 			
 		}//end if
 		
@@ -156,17 +156,45 @@ public class GUI extends JFrame  implements ActionListener {
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
+			}	
 			
 		}catch(SQLException e){
 			
-			JOptionPane.showMessageDialog(null, JOptionPane.ERROR_MESSAGE,"No se pudo hacer conexion con la base de datos", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(rootPane, "No se pudo conectar a la BD");
 			
 		}//end try-catch
-		
-		
+
 		return band;
 	}//end conection
+	
+	/*cerramos la base de datos (metodo)
+	 * */
+	public boolean cerrarConexion(){
+		boolean band=false;
+		 try
+	        {
+	            con.close();
+	            
+	            band=true;
+	        }catch(Exception e)
+	        {
+	        	JOptionPane.showMessageDialog(rootPane,"Problema para cerrar la Conexión a la base de datos ");
+	        }//end try-catch
+		 
+		 return band;
+	}//end cerrarConexion
+	
+	public String GetUsr(){
+		return user.getText();
+	}//end GetUsr
+	
+	public String GetPass(){
+		String pass= new String(passwordField.getPassword());
+		return pass;
+	}//end GetUsr
+	
+	public Connection GetConnection(){
+			return con;
+	}//end GetConection(
 }
 

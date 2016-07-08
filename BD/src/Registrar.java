@@ -7,6 +7,11 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.swing.JPasswordField;
 import javax.swing.JCheckBox;
 
@@ -16,14 +21,16 @@ public class Registrar extends JFrame  implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField textFieldNombre,textFieldCi;
+	private JTextField textFieldNombre;
 	private JButton btnNewButtonAceptar;
 	private JPanel panel;
-	JLabel lblNombre,lblCedula,lblContrasea;
+	JLabel lblNombre,lblContrasea;
 	private JButton btnCancelar,btnAtras;
 	private JPasswordField passwordField;
 	private JCheckBox chckbxAdministrador,chckbxEmpleado;
-	GUI g;
+	private Connection con;
+	
+	Chocolatera r;
 	/**
 	 * Launch the application.
 	 */
@@ -32,12 +39,13 @@ public class Registrar extends JFrame  implements ActionListener{
 	/**
 	 * Create the application.
 	 */
-	public Registrar(GUI e) {
+	public Registrar(Chocolatera e) {
 		getContentPane().setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20)); 
 		initialize();
-		g=e;
-		g.setVisible(false);
+		r=e;
+		r.setVisible(false);
 	}
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -59,25 +67,15 @@ public class Registrar extends JFrame  implements ActionListener{
 		lblNombre.setBounds(116, 16, 46, 14);
 		panel.add(lblNombre);
 		
-		 lblCedula = new JLabel("Cedula");
-		lblCedula.setFont(new Font("Arial", Font.BOLD, 12));
-		lblCedula.setBounds(116, 50, 46, 14);
-		panel.add(lblCedula);
-		
 		 lblContrasea = new JLabel("Contrase\u00F1a");
 		lblContrasea.setFont(new Font("Arial", Font.BOLD, 12));
-		lblContrasea.setBounds(116, 82, 66, 14);
+		lblContrasea.setBounds(116, 50, 66, 14);
 		panel.add(lblContrasea);
 		
 		textFieldNombre = new JTextField();
 		textFieldNombre.setBounds(218, 14, 155, 20);
 		panel.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
-		
-		textFieldCi = new JTextField();
-		textFieldCi.setBounds(218, 48, 155, 20);
-		panel.add(textFieldCi);
-		textFieldCi.setColumns(10);
 		
 		 btnNewButtonAceptar = new JButton("Aceptar");
 		 btnNewButtonAceptar.addActionListener(this);
@@ -91,7 +89,7 @@ public class Registrar extends JFrame  implements ActionListener{
 		panel.add(btnCancelar);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(218, 80, 155, 20);
+		passwordField.setBounds(218, 48, 155, 20);
 		panel.add(passwordField);
 		
 		 chckbxAdministrador = new JCheckBox("Administrador");
@@ -112,14 +110,14 @@ public class Registrar extends JFrame  implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		String usr,Ci,pass;
+		String usr,pass;
 		int i;
 		boolean band;
+		Statement st;
 		
 		if(e.getSource()==btnCancelar){
 			
 			passwordField.setText(null);
-			textFieldCi.setText(null);
 			textFieldNombre.setText(null);
 			this.paint(getGraphics());
 		}//end if
@@ -127,7 +125,6 @@ public class Registrar extends JFrame  implements ActionListener{
 		if(e.getSource()==btnNewButtonAceptar){
 				
 			usr=textFieldNombre.getText();
-			Ci=textFieldCi.getText();
 			pass= new String(passwordField.getPassword());
 			
 			i=0;
@@ -137,20 +134,38 @@ public class Registrar extends JFrame  implements ActionListener{
 				
 				if(isNumeric(usr)){
 					band=false;
-					System.out.println("hola");
+					
 				}//en if
 				i++;
 			}//end for
 			
-			if(band==false || usr.length()==0 || Ci.length()==0 || pass.length()==0  || (chckbxEmpleado.isSelected() && chckbxAdministrador.isSelected())||(!(chckbxEmpleado.isSelected()) && !(chckbxAdministrador.isSelected())) ){
+			if(band==false || usr.length()==0 || pass.length()==0  || (chckbxEmpleado.isSelected() && chckbxAdministrador.isSelected())||(!(chckbxEmpleado.isSelected()) && !(chckbxAdministrador.isSelected())) ){
 				 JOptionPane.showMessageDialog( null, "El usuario no puede ser alfanumerico o Contraseña y Ci estan en vacios o verifique las casilla de tipo de usuario" );
 				 textFieldNombre.setText(null);
-				 textFieldCi.setText(null);
 				 passwordField.setText(null);
 			}else{
 				
-				///aqui debe ir la llamada a la rutina para insertar en la tablas de usuarios
-				/// el uevo usuario con sus permisos 
+				if(conection("localhost","5432",r.g.GetUsr(),r.g.GetPass())){
+					try {
+						st=con.createStatement();
+						
+						if(chckbxAdministrador.isSelected()){
+				
+							st.executeUpdate("CREATE USER "+usr+" PASSWORD '"+pass+"'");
+							st.executeUpdate("ALTER ROLE "+usr+" WITH SUPERUSER");
+							
+						}else{
+							
+							st.executeUpdate("CREATE USER "+usr+" PASSWORD '"+pass+"'");
+							
+						}//end if-else
+						
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						JOptionPane.showMessageDialog(rootPane, "Conexion perdida");
+					}
+				}//end if
 			}
 			
 		}//end if
@@ -158,7 +173,7 @@ public class Registrar extends JFrame  implements ActionListener{
 		if(e.getSource()==btnAtras){
 			this.removeAll();
 			this.setVisible(false);
-			ShowGui(g);
+			ShowGui(r);
 			
 		}//end if
 	}
@@ -172,7 +187,32 @@ public class Registrar extends JFrame  implements ActionListener{
 		}
 	}//isNumeric
 	
-	private void ShowGui(GUI g){
+	private void ShowGui(Chocolatera g){
 		g.setVisible(true);
 	}//end ShowGui
+	
+	private boolean conection(String servidor,String puerto,String usuario,String contrasena){
+		
+		boolean  band=false;
+		String url;
+		try{
+			//metodo para cargar el driver
+			url="jdbc:postgresql://" + servidor + ":" + puerto + "/"+"postgres";
+			try {
+				Class.forName("org.postgresql.Driver");
+				con=DriverManager.getConnection(url, usuario, contrasena);
+				band=true;
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+		}catch(SQLException e){
+			
+			JOptionPane.showMessageDialog(rootPane, "No se pudo conectar a la BD, para la creacion del usuario");
+			
+		}//end try-catch
+
+		return band;
+	}//end conection
 }
