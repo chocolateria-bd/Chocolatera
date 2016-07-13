@@ -55,7 +55,7 @@ public class Chocolatera extends JFrame implements ActionListener{
 	private boolean band=false;
 	private JButton btnSalir,btnCerrarSesion;
 	private JButton btnRegistrar;
-	GUI g;
+	Bootstrap base;
 	
 	@SuppressWarnings("rawtypes")
 	private DefaultListModel modelolist;
@@ -70,11 +70,10 @@ public class Chocolatera extends JFrame implements ActionListener{
 	/**
 	 * Create the application.
 	 */
-	public Chocolatera(GUI e) {
+	public Chocolatera(Bootstrap base) {
 		getContentPane().setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20)); 
 		initialize();
-		e.setVisible(false);
-		g=e;
+		base.gui.setVisible(false);
 	}
 
 	/**
@@ -159,10 +158,10 @@ public class Chocolatera extends JFrame implements ActionListener{
 		Statement st;
 				if(e.getSource()==btnCerrarSesion){
 			
-			if(g.cerrarConexion()){
+			if(this.base.model.cerrarConexion()){
 				this.removeAll();
 				this.setVisible(false);
-				MostrarGUI(g);
+				MostrarGUI(this.base.gui);
 				
 				
 			}//end if
@@ -177,7 +176,7 @@ public class Chocolatera extends JFrame implements ActionListener{
 		
 		if(e.getSource()==btnSalir){
 			
-			if(g.cerrarConexion()){
+			if(this.base.model.cerrarConexion()){
 				System.exit(1);
 				
 			}//end if
@@ -191,7 +190,7 @@ public class Chocolatera extends JFrame implements ActionListener{
 				modelolist=new DefaultListModel();
 				list.setCellRenderer(new CheckboxListCellRenderer());
 				 list.setModel(modelolist);
-				st=g.GetConnection().createStatement();
+				st=this.base.model.GetConnection().createStatement();
 				rs=st.executeQuery("SELECT tablename FROM pg_tables where schemaname='bd'");
 				rs.next();
 					
@@ -230,9 +229,9 @@ public class Chocolatera extends JFrame implements ActionListener{
 		}//end if
 		
 		if(e.getSource()==btnRegistrar){
-			Registrar r=new Registrar(this);
+			Registrar ventana_registro =new Registrar(this.base);
 			this.setVisible(false);
-			r.setVisible(true);
+			ventana_registro.setVisible(true);
 			
 		}//end if
 	}

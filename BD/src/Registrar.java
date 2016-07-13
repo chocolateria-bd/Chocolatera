@@ -29,8 +29,8 @@ public class Registrar extends JFrame  implements ActionListener{
 	private JPasswordField passwordField;
 	private JCheckBox chckbxAdministrador,chckbxEmpleado;
 	private Connection con;
-	
-	Chocolatera r;
+	Bootstrap base;
+	Chocolatera registro;
 	/**
 	 * Launch the application.
 	 */
@@ -39,11 +39,11 @@ public class Registrar extends JFrame  implements ActionListener{
 	/**
 	 * Create the application.
 	 */
-	public Registrar(Chocolatera e) {
+	public Registrar(Bootstrap base) {
 		getContentPane().setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20)); 
 		initialize();
-		r=e;
-		r.setVisible(false);
+		this.con = base.model.GetConnection();
+		base.gui.ventana_chocolatera.setVisible(false);
 	}
 	
 
@@ -145,7 +145,7 @@ public class Registrar extends JFrame  implements ActionListener{
 				 passwordField.setText(null);
 			}else{
 				
-				if(conection("localhost","5432",r.g.GetUsr(),r.g.GetPass())){
+				if(base.model.connection("localhost","5432",base.model.GetUsr(),base.model.GetPass(), "postgres")){
 					try {
 						st=con.createStatement();
 						
@@ -173,7 +173,7 @@ public class Registrar extends JFrame  implements ActionListener{
 		if(e.getSource()==btnAtras){
 			this.removeAll();
 			this.setVisible(false);
-			ShowGui(r);
+			ShowGui(registro);
 			
 		}//end if
 	}
@@ -190,29 +190,5 @@ public class Registrar extends JFrame  implements ActionListener{
 	private void ShowGui(Chocolatera g){
 		g.setVisible(true);
 	}//end ShowGui
-	
-	private boolean conection(String servidor,String puerto,String usuario,String contrasena){
-		
-		boolean  band=false;
-		String url;
-		try{
-			//metodo para cargar el driver
-			url="jdbc:postgresql://" + servidor + ":" + puerto + "/"+"postgres";
-			try {
-				Class.forName("org.postgresql.Driver");
-				con=DriverManager.getConnection(url, usuario, contrasena);
-				band=true;
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-			
-		}catch(SQLException e){
-			
-			JOptionPane.showMessageDialog(rootPane, "No se pudo conectar a la BD, para la creacion del usuario");
-			
-		}//end try-catch
 
-		return band;
-	}//end conection
 }

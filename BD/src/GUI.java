@@ -33,8 +33,9 @@ public class GUI extends JFrame  implements ActionListener {
 	private JButton btnIniciar, btnCancelar;
 	private JLabel lblNewLabel,lblUsuario;
 	private JButton btnCerrar;
-
-	private Connection con;
+	private Bootstrap base;
+	public Chocolatera ventana_chocolatera;
+	public JOptionPane avisos;
 	/**
 	 * Launch the application.
 	 */
@@ -42,8 +43,9 @@ public class GUI extends JFrame  implements ActionListener {
 	/**
 	 * Create the application.
 	 */
-	public GUI() {
-		getContentPane().setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20)); 
+	public GUI(Bootstrap base) {
+		getContentPane().setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20));
+		this.base = base;
 		initialize();
 	}//end GUI
 
@@ -111,14 +113,18 @@ public class GUI extends JFrame  implements ActionListener {
 			
 			 pass= new String(passwordField.getPassword());
 			
-			if(conection("localhost","5432",user.getText(),pass,"proyectobd")){
+			if(this.base.model.connection("localhost","5432",user.getText(),pass,"proyectobd")){
 				
-				Chocolatera Chc=new Chocolatera(this);
-				Chc.setVisible(true);
-				Chc.Privilegios(1);/// si no es 1 es usuario normal validar esta parte cuando el usuario inicie de session
+				this.ventana_chocolatera = new Chocolatera(this.base);
+				this.ventana_chocolatera.setVisible(true);
+				this.ventana_chocolatera.Privilegios(1);/// si no es 1 es usuario normal validar esta parte cuando el usuario inicie de session
 				passwordField.setText(null);
 				pass=null;
-			}//end if
+			}else
+			{
+				JOptionPane.showMessageDialog(rootPane, "No se pudo conectar a la BD");
+			}
+			//end if
 		}//end if
 		
 		if(e.getSource()==btnCancelar){
@@ -133,68 +139,13 @@ public class GUI extends JFrame  implements ActionListener {
 		if(e.getSource()==btnCerrar){
 			
 			//cerrar programa
+			base.model.cerrarConexion();
 			System.exit(0);
 			
 		}//end if
 		
 		
 	}//end actionPerformed
-	/*
-	 * hace la conexion con la bd
-	 * */
-	private boolean conection(String servidor,String puerto,String usuario,String contrasena,String database){
-		
-		boolean  band=false;
-		String url;
-		try{
-			//metodo para cargar el driver
-			url="jdbc:postgresql://" + servidor + ":" + puerto + "/" + database;
-			try {
-				Class.forName("org.postgresql.Driver");
-				con=DriverManager.getConnection(url, usuario, contrasena);
-				band=true;
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-			
-		}catch(SQLException e){
-			
-			JOptionPane.showMessageDialog(rootPane, "No se pudo conectar a la BD");
-			
-		}//end try-catch
 
-		return band;
-	}//end conection
-	
-	/*cerramos la base de datos (metodo)
-	 * */
-	public boolean cerrarConexion(){
-		boolean band=false;
-		 try
-	        {
-	            con.close();
-	            
-	            band=true;
-	        }catch(Exception e)
-	        {
-	        	JOptionPane.showMessageDialog(rootPane,"Problema para cerrar la Conexión a la base de datos ");
-	        }//end try-catch
-		 
-		 return band;
-	}//end cerrarConexion
-	
-	public String GetUsr(){
-		return user.getText();
-	}//end GetUsr
-	
-	public String GetPass(){
-		String pass= new String(passwordField.getPassword());
-		return pass;
-	}//end GetUsr
-	
-	public Connection GetConnection(){
-			return con;
-	}//end GetConection(
 }
 
