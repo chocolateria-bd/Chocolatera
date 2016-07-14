@@ -44,16 +44,14 @@ public class Model {
 	 * */
 	public boolean cerrarConexion(){
 		boolean band=false;
-		 try
-	        {
-	            this.connection.close(); 
-	            band=true;
-	        }catch(Exception e)
-		 	{
-	        	e.printStackTrace();
-	        }//end try-catch
+		try{
+			this.connection.close(); 
+			band=true;
+		}catch(Exception e){
+			e.printStackTrace();
+		}//end try-catch
 		 
-		 return band;
+		return band;
 	}//end cerrarConexion
 	
 	public String GetUsr(){
@@ -65,7 +63,7 @@ public class Model {
 	}//end GetUsr
 	
 	public Connection GetConnection(){
-			return this.connection;
-	}//end GetConection(
+		return this.connection;
+	}//end GetConection
 	
 }
