@@ -18,6 +18,6 @@ public class Bootstrap {
         model.initConnection("localhost","5432","postgres", "pi3141592", "proyectobd");
         model.printDatabaseInfo();
         //ChocoUI.init();
-        
+        model.closeConnection();
     }
 }

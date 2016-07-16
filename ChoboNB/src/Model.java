@@ -9,6 +9,9 @@ public class Model {
 	private String server, port, database, user, password, schema;
         private Map<String, List<String>> tableNames;
         
+        /*Metodos para el manejo de la conexion */
+        
+	 // hace la conexion con la bd
 	public boolean initConnection(String server,String port,String user,String password,String database){
 		this.tableNames = new HashMap<String, List<String>>();
 		boolean  band = false;
@@ -44,6 +47,7 @@ public class Model {
 		return band;
 	}//end conection
 	
+        //obtenemos los nombres de las tablas (y las columnas llamando a getDatabaseColumnNames)
         private void getDatabaseTableNames() throws SQLException
         {            
             try{
@@ -59,7 +63,7 @@ public class Model {
                 e.printStackTrace();
             }
         }
-        
+        //Obtenemos los nombres de las columnas de la tabla tableName
         private void getDatabaseColumnNames(String tableName)
         {
             try{
@@ -75,17 +79,13 @@ public class Model {
             }
         }
         
+        //imprimir la información de la base de datos
         public void printDatabaseInfo(){
             System.out.println(this.tableNames);
         }
-        
-	/*
-	 * hace la conexion con la bd
-	 * */
-
-	/*cerramos la base de datos (metodo)
-	 * */
-	public boolean cerrarConexion(){
+       	
+	//cerramos la conexion con la base de datos (metodo)
+	public boolean closeConnection(){
 		boolean band=false;
 		try{
 			this.connection.close(); 
@@ -109,5 +109,46 @@ public class Model {
 		return this.connection;
 	}//end GetConection
         
+        public Map<String, List<String>> selectAllFrom(String tableName){
+            Map<String, List<String>> result = new HashMap<String, List<String>>();
+            try{
+                
+                for(Map.Entry e : this.tableNames.entrySet()){
+                        e.setValue(new LinkedList<String>());   //inicializamos el arreglo con listas vacias
+                }
+                Statement st = this.connection.createStatement();
+                String sql = "SELECT * FROM " + tableName;
+                ResultSet rs = st.executeQuery(sql);
+                 //para retornar un hashmap con (nombreColumna => lista de filas) en lugar de un ResultSet
+                while(rs.next()){
+                    for(String e : this.tableNames.get(tableName)){
+                        result.get(e).add(rs.getString(e));
+                    }
+                }               
+            }catch(SQLException e){
+                e.printStackTrace();
+            }            
+            return result;
+        }
+        
+        
+        public String parseColumnNames(Collection<String> columnNames){
+            String result = "";
+            Iterator i = columnNames.iterator();
+            if(!columnNames.isEmpty()){
+                while(i.hasNext()){
+                    result += result + i.next();
+                    if(i.hasNext()){
+                        result += ", ";
+                    }else{
+                        result += " ";
+                    }
+                }
+            }else{
+                result += "*";
+            }
+                
+                return result;
+        }
         
 }
