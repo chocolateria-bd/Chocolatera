@@ -9,8 +9,15 @@
  * @author Victor
  */
 public class Bootstrap {
+    public static Bootstrap instance;
+    public static ChocoUI view;
+    public static Model model;
     public static void main(String args[]){
         System.out.println("Hello, World");
-        ChocoUI.init();
+        model = new Model();
+        model.initConnection("localhost","5432","postgres", "pi3141592", "proyectobd");
+        model.printDatabaseInfo();
+        //ChocoUI.init();
+        
     }
 }
