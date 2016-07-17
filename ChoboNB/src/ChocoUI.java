@@ -64,6 +64,7 @@ public class ChocoUI extends javax.swing.JFrame {
      *
      * @param darkMode
      */
+    
     public static void init(boolean darkMode){
         /* Set the Nimbus look and feel */
         initTheme(darkMode);
