@@ -1,3 +1,6 @@
+
+import java.lang.reflect.InvocationTargetException;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,19 +9,37 @@
 
 /**
  *
- * @author Victor
  */
 public class Bootstrap {
-    public static Bootstrap instance;
-    public static ChocoUI view;
-    public static Model model;
-    public static void main(String args[]){
-        ChocoUI.init();
-        System.out.println("Hello, World");
+    public static Bootstrap instance = null;
+    public ChocoUI view = null;
+    public Model model = null;
+    
+    public Bootstrap(){
         model = new Model();
-        model.initConnection("localhost","5432","postgres", "pi3141592", "proyectobd");
-        model.printDatabaseInfo();
-        //ChocoUI.init();
-        model.closeConnection();
+        view = ChocoUI.getInstance();
+    }
+    
+    public static synchronized Bootstrap getInstance(){
+        if (instance == null) {
+            instance = new Bootstrap();
+        }
+        return instance;
+    }
+    
+    public static void main(String args[]){
+        
+        ChocoUI.init();
+        instance = new Bootstrap();
+        
+           
+        System.out.println("!! -- Initialization was correct.  -- !!");
+        if (instance.view == null || instance.model == null) {
+            System.out.println("- Instance is  null.");
+        }
+        
+        // model.initConnection("localhost","5432", "postgres", "pi3141592", "proyectobd");
+        // model.printDatabaseInfo();
+        // model.closeConnection();
     }
 }

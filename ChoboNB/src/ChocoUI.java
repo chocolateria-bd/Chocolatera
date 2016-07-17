@@ -12,7 +12,8 @@ import java.awt.CardLayout;
  * @author Victor
  */
 public class ChocoUI extends javax.swing.JFrame {
-
+    
+    private static ChocoUI instance = null;
     /**
      * Creates new form ChocoUI
      */
@@ -29,25 +30,36 @@ public class ChocoUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        mainPanel = new javax.swing.JPanel();
+        try {
+            loginPanel1 = new loginPanel();
+        } catch (java.lang.reflect.InvocationTargetException e1) {
+            e1.printStackTrace();
+        } catch (java.lang.InterruptedException e2) {
+            e2.printStackTrace();
+        }
         userPanel1 = new userPanel();
-        loginPanel1 = new loginPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setLayout(new java.awt.CardLayout());
-        jPanel1.add(userPanel1, "card3");
-        jPanel1.add(loginPanel1, "card2");
+        mainPanel.setLayout(new java.awt.CardLayout());
+        mainPanel.add(loginPanel1, "loginPanel");
+        mainPanel.add(userPanel1, "userPanel");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 412, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -57,39 +69,51 @@ public class ChocoUI extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        init();
-    }
-    
-    /**
-     *
-     * @param darkMode
-     */
-    
-    public static void init(boolean darkMode){
         /* Set the Nimbus look and feel */
-        initTheme(darkMode);
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new ChocoUI().setVisible(true);
-            }
-        });
-    }
-    
-    public static void init(){
-        init(false);
-    }
-    
-    public static void initTheme(boolean darkMode){
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ((darkMode? "Dark Nimbus" : "Nimbus").equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ChocoUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ChocoUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ChocoUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ChocoUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        
+    }
+    
+    public void swapPanel(String panelName) {
+        CardLayout card = (CardLayout)mainPanel.getLayout();
+        card.show(mainPanel, panelName);
+    }
+    
+    public static void init(){
+        initTheme();
+        instance = new ChocoUI();
+        instance.setVisible(true);
+        System.out.println("-- Properly set ChocoUI instance");
+    }
+    
+    public static void initTheme(){
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -105,10 +129,14 @@ public class ChocoUI extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
+    
+    public static ChocoUI getInstance(){
+        return instance;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
     private loginPanel loginPanel1;
+    private javax.swing.JPanel mainPanel;
     private userPanel userPanel1;
     // End of variables declaration//GEN-END:variables
 }

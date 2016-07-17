@@ -1,5 +1,5 @@
 /*falta verificar unos atributos que son no obligatorios y con respecto a los tipos, ruta, ingredientes,cantidad no se como lo modelamos no recuerdo
- su tipo ni el domino de los tipos, faltaria ver los incidentes y otras cosas, los atributos que estan en blanco son lo que tengo duda de como lo modelamos 
+ su tipo ni el domino de los tipos, faltaria ver los incidentes y otras cosas, los atributos que estan en blanco son lo que tengo duda de como lo modelamos
  revisen y luego corran esto que yo no tengo linux y lo hice en windows y no probe nada */
 
 create database proyectobd template template1;
@@ -161,7 +161,7 @@ CREATE TABLE BD.Distribuye(
 	FOREIGN KEY (ci) REFERENCES BD.Empleado ON DELETE CASCADE,
 	FOREIGN KEY (codigo) REFERENCES BD.Producto ON DELETE CASCADE,
 	FOREIGN KEY (rif) REFERENCES BD.Empresa ON DELETE CASCADE
-	
+
 );
 
 CREATE TABLE BD.Vende(

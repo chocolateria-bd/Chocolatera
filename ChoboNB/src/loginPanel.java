@@ -1,3 +1,7 @@
+
+import java.lang.reflect.InvocationTargetException;
+import org.postgresql.util.PSQLException;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,9 +16,12 @@ public class loginPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form loginPanel
+     * @throws java.lang.reflect.InvocationTargetException
+     * @throws java.lang.InterruptedException
      */
-    public loginPanel() {
+    public loginPanel() throws InvocationTargetException, InterruptedException {
         initComponents();
+        
     }
 
     /**
@@ -28,37 +35,51 @@ public class loginPanel extends javax.swing.JPanel {
 
         usernameField = new javax.swing.JTextField();
         passwordField = new javax.swing.JTextField();
+        loginButton = new javax.swing.JButton();
 
         setOpaque(false);
 
-        usernameField.setText("username");
+        usernameField.setText("surole");
         usernameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameFieldActionPerformed(evt);
             }
         });
 
-        passwordField.setText("password");
+        passwordField.setText("123");
+
+        loginButton.setText("Entrar");
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(123, 123, 123)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(usernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(passwordField))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(295, Short.MAX_VALUE)
+                .addComponent(loginButton)
+                .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(121, 121, 121)
+                .addGap(115, 115, 115)
                 .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addComponent(loginButton)
+                .addGap(26, 26, 26))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -66,8 +87,22 @@ public class loginPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameFieldActionPerformed
 
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        bs = Bootstrap.getInstance();
+        String user = usernameField.getText();
+        String pass = passwordField.getText();
+        if (bs.model.initConnection("localhost","5432", user, pass, "proyectobd")){
+            System.out.println("Login Exitoso");
+            bs.view.swapPanel("userPanel");
+        } else {
+            System.out.println("Error al logear");
+        }
+    }//GEN-LAST:event_loginButtonActionPerformed
+    
+    private Bootstrap bs;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton loginButton;
     private javax.swing.JTextField passwordField;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables

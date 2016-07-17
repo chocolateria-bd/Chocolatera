@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
@@ -18,20 +21,22 @@ public class userPanel extends javax.swing.JPanel {
     private String filas[][];
     
     private String columnas2[] = {"Nombre", "Fecha", "data"};
-    
     DefaultTableModel tabla;
+    
     /**
      * Creates new form userPanel
      */
     public userPanel() {
         initComponents();
+        tabla = new DefaultTableModel(filas, columnas);
+        jTable2.setModel(tabla);
     }
     
     private void updateTableModel(String rows[][], String columns[]){
         tabla = new DefaultTableModel(rows, columns);
-        jTable2.setModel(tabla);
-        jScrollPane2.setViewportView(jTable2);
         tabla.fireTableDataChanged();
+        jTable2.setModel(tabla);
+        // jScrollPane2.setViewportView(jTable2);
     }
 
     /**
@@ -45,8 +50,9 @@ public class userPanel extends javax.swing.JPanel {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        productosButton = new javax.swing.JButton();
+        clienteButton = new javax.swing.JButton();
+        exitButton = new javax.swing.JButton();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -61,17 +67,24 @@ public class userPanel extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        productosButton.setText("Productos");
+        productosButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                productosButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        clienteButton.setText("Cliente");
+        clienteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                clienteButtonActionPerformed(evt);
+            }
+        });
+
+        exitButton.setText("Salir");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
             }
         });
 
@@ -80,42 +93,78 @@ public class userPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(147, 147, 147))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(productosButton)
+                        .addGap(28, 28, 28)
+                        .addComponent(clienteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 20, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(14, 14, 14))
+                .addGap(61, 61, 61)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(productosButton)
+                        .addComponent(clienteButton))
+                    .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        updateTableModel(filas, columnas);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void productosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productosButtonActionPerformed
+        updateJTableWith("producto");
+    }//GEN-LAST:event_productosButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        updateTableModel(filas, columnas2);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void clienteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteButtonActionPerformed
+        updateJTableWith("cliente");
+    }//GEN-LAST:event_clienteButtonActionPerformed
 
-
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        setBootstrap();
+        if (bs.model.closeConnection()) {
+            System.out.println("Logged out exitoso");
+            bs.view.swapPanel("loginPanel");
+        } else {
+            System.out.println("Error al cerrar la conexion a la bd");
+        }
+    }//GEN-LAST:event_exitButtonActionPerformed
+    
+    public Bootstrap bs = null;
+    
+    public void setBootstrap(){
+        if (bs == null){
+            bs = Bootstrap.getInstance();
+        }
+    }
+    
+    public void updateJTableWith(String tableName) {
+        setBootstrap();
+        Map<String, List<String>> tableNames = bs.model.getTableNames();
+        List<String> namesList = tableNames.get(tableName);
+        System.out.println("Columnas de " + tableName + ": " + namesList);
+        
+        updateTableModel(Utils.listOfListsToArray(bs.model.selectAllFromLoader(tableName)), Utils.listToArray(namesList));
+        
+        System.out.println("Actualizacion Correcta con " + tableName);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton clienteButton;
+    private javax.swing.JButton exitButton;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
+    private javax.swing.JButton productosButton;
     // End of variables declaration//GEN-END:variables
+
 }
