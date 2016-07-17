@@ -2,7 +2,7 @@
 # Created by https://www.gitignore.io/api/netbeans,java,eclipse
 
 ### NetBeans ###
-ChoboNB/nbproject/private/
+ChoboNB/nbproject/private/*
 build/
 nbbuild/
 dist/
