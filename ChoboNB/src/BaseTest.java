@@ -8,11 +8,15 @@
  *
  * @author Victor
  */
-public class Bootstrap {
-    public static void main(String args[]){
-        ExtendTest a = new ExtendTest();
-        ChocoUI.init();
-        
-        
+public abstract class BaseTest {
+    
+    public String nombre;
+    /**
+     *
+     */
+    public void BaseTest(){
+        nombre = stringSetter();
     }
+    
+    public abstract String stringSetter();
 }
