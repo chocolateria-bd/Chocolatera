@@ -38,8 +38,8 @@ public class Bootstrap {
         }
 
         
-         instance.model.initConnection("localhost","5432", "postgres", "pi3141592", "proyectobd");
-         instance.model.printDatabaseInfo();
+        //instance.model.initConnection("localhost","5432", "postgres", "pi3141592", "proyectobd");
+        //instance.model.printDatabaseInfo();
         // model.closeConnection();
     }
 }

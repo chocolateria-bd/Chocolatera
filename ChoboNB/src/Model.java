@@ -174,8 +174,23 @@ public class Model {
         }            
         return result;
     }
-
-    public String parseColumnNames(Collection<String> columnNames){
+    
+    public void removeRow(List<String> keyValues, String tableName){
+        List<Map<String, Object>> result = new LinkedList< Map<String, Object> >();
+        try {
+            Statement statement = this.connection.createStatement();
+            String sql = String.format("DELETE FROM BD.%s WHERE %s = '%s';",
+                    tableName, parse(this.primaryKeyColumns.get(tableName)), 
+                    parse(keyValues));
+            System.out.println(sql);
+            statement.executeUpdate(sql);
+            // this.connection.commit();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+        public String parse(Collection<String> columnNames){
         String result = "";
         Iterator i = columnNames.iterator();
         if(!columnNames.isEmpty()){
@@ -187,22 +202,7 @@ public class Model {
                     result += " ";
                 }
             }
-        }else{
-            result += "*";
         }
         return result;
-    }
-    
-    public void removeRow(Object key, String tableName){
-        List<Map<String, Object>> result = new LinkedList< Map<String, Object> >();
-        try {
-            Statement statement = this.connection.createStatement();
-            String sql = String.format("DELETE FROM BD.%s WHERE %s = '%s';", tableName, Utils.getPrimaryKey(tableName), key);
-            System.out.println(sql);
-            statement.executeUpdate(sql);
-            // this.connection.commit();
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
     }
 }
