@@ -19,7 +19,7 @@ CREATE DOMAIN BD.T_codigo smallint
 CREATE DOMAIN BD.T_string varchar(60);	/*dominio de string para los nombres y todo lo que tenga que ver con string tamaño 60*/
 CREATE DOMAIN BD.T_fecha timestamp
 		CHECK (VALUE >= '1900-01-01');/*dominio de tipo fecha para todas las fechas 0000-00-00 empieza en 1900-01-01 */
-CREATE DOMAIN BD.T_sueldo float
+CREATE DOMAIN BD.T_moneda float
 		CHECK (value >= 0.0);/* dominio para el sueldo y los precios*/
 CREATE DOMAIN BD.T_time time;/* dominio para la hora (solo hora no fecha) */
 CREATE DOMAIN BD.T_cliente tcliente; /* dominio para la hora (solo hora no fecha) */
@@ -53,7 +53,7 @@ CREATE TABLE BD.Producto(
 	codigo BD.T_codigo,
 	nombre BD.T_string,
 	tipo BD.T_unidades,
-	valor BD.T_sueldo,
+	valor BD.T_moneda,
 	primary key (codigo)
 );
 
@@ -70,7 +70,7 @@ CREATE TABLE BD.Empleado(
 	ci BD.T_identificador,
 	fecha_nac BD.T_fecha,
 	rif BD.T_identificador,
-	sueldo BD.T_sueldo,
+	sueldo BD.T_moneda,
 	fecha_de_contrato BD.T_fecha,
 	fecha_fin_contrato BD.T_fecha,
 	primary key (ci),
@@ -172,7 +172,7 @@ CREATE TABLE BD.Vende(
 	fecha BD.T_fecha,
 	hora BD.T_time,
 	cantidad int,
-	precio BD.T_sueldo,
+	precio BD.T_moneda,
 	primary key (rif,codigo_cliente,codigo_producto,fecha,hora),
 	FOREIGN KEY (codigo_producto) REFERENCES BD.Producto ON DELETE CASCADE,
 	FOREIGN KEY (codigo_cliente) REFERENCES BD.Cliente ON DELETE CASCADE,
