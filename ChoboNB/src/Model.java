@@ -204,7 +204,7 @@ public class Model {
         String result = "";
         Iterator i = columnNames.iterator();
         if(!columnNames.isEmpty()){
-        while(i.hasNext()){
+           while(i.hasNext()){
                 result += result + i.next();
                 if(i.hasNext()){
                     result += ", ";
@@ -214,5 +214,18 @@ public class Model {
             }
         }
         return result;
+    }
+    
+    public List<Integer> getKeyIndexFrom(String tableName) {
+        List<Integer> indexList = new LinkedList<Integer>();
+        List<String> keyColumns = this.primaryKeyColumns.get(tableName);
+        int index = 0;
+        for (String e : this.tableNames.get(tableName)) {
+            if (keyColumns.contains(e)) {
+                indexList.add(index);
+            }
+            index++;
+        }
+        return indexList;
     }
 }
