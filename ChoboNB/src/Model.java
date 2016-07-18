@@ -115,11 +115,11 @@ public class Model {
     }//end cerrarConexion
     
     public Map<String, List<String>> getTableNames(){
-        try{
+        /*try{
             this.getDatabaseTableNames();
         }catch(Exception e){
             e.printStackTrace();
-        }
+        }*/
         return this.tableNames;
     }
     

@@ -14,20 +14,27 @@ import java.util.Map;
  * @author Victor
  */
 public class Utils {
+       
+    public static Bootstrap bs = null;
+    
+    
     public static String[] listToArray(List<String> list){
         String[] newArray = new String[list.size()];
         newArray = list.toArray(newArray);
         return newArray;
     }
     
-    public static Object[][] listOfListsToArray(List<Map<String, Object>> listOfMaps){
+    public static Object[][] listOfListsToArray(List<Map<String, Object>> listOfMaps, String tableName){
+        setBootstrap();
         if (!listOfMaps.isEmpty()) {
             Object[][] tableOfObjects = new String[listOfMaps.size()][listOfMaps.get(0).size()];
             for (int i = 0; i < listOfMaps.size(); i++) {
                 Map<String, Object> map = listOfMaps.get(i);
+                List<String> tableNames = bs.model.getTableNames().get(tableName);
                 int j = 0;
-                for(Map.Entry e : map.entrySet()){
-                    tableOfObjects[i][j++] = e.getValue().toString();
+                
+                for (String s : tableNames) {
+                    tableOfObjects[i][j++] = map.get(s);
                 }
             }
             return tableOfObjects;
@@ -47,5 +54,11 @@ public class Utils {
     
     public static String stringify(String string){
         return "'" + string + "'";
+    }
+    
+    public static void setBootstrap(){
+        if (bs == null){
+            bs = Bootstrap.getInstance();
+        }
     }
 }
