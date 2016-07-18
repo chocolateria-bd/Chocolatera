@@ -15,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
  * @author Victor
  */
 public class FormCliente extends javax.swing.JFrame {
-
         
     private static FormCliente instance = null;
     /**

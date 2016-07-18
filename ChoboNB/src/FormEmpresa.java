@@ -113,15 +113,12 @@ public class FormEmpresa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        // TODO add your handling code here:
-                adminPanel panel = adminPanel.getInstance();
-        
+        adminPanel panel = adminPanel.getInstance();
         List<String> values = new LinkedList<String>() {{
             add(rifTextField.getText());
             add(nombreTextField.getText());
             add(direccionTextField.getText());
         }};
-        
         panel.updateDatabase(values);
     }//GEN-LAST:event_submitButtonActionPerformed
     
@@ -129,7 +126,7 @@ public class FormEmpresa extends javax.swing.JFrame {
         initTheme();
         instance = new FormEmpresa();
         instance.setVisible(true);
-        instance.setDefaultCloseOperation(FormCliente.DISPOSE_ON_CLOSE);
+        instance.setDefaultCloseOperation(FormEmpresa.DISPOSE_ON_CLOSE);
     }
     public static void initTheme(){
                 /* Set the Nimbus look and feel */
