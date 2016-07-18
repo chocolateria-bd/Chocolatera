@@ -5,6 +5,7 @@
  */
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JScrollPane;
@@ -175,10 +176,13 @@ public class userPanel extends javax.swing.JPanel {
         int selectedRow;
         if ((selectedRow = jTable2.getSelectedRow()) != -1) {
             System.out.println(selectedRow);
-            Object keyToRemove = model.getValueAt(selectedRow, 0);
-            bs.model.removeRow(keyToRemove, actualDBTable);
-            model.removeRow(selectedRow);
-            System.out.println("Succesfully removed from database");
+            List<String> objectsKeysToRemove = new LinkedList<String>();
+            for (Integer index : bs.model.getKeyIndexFrom(actualDBTable)) {
+                objectsKeysToRemove.add(model.getValueAt(selectedRow, 0).toString());
+            }
+            bs.model.removeRow(actualDBTable, objectsKeysToRemove);
+            // model.removeRow(selectedRow);
+            // System.out.println("Succesfully removed from database");
         }
     }//GEN-LAST:event_eliminarRegistroActionPerformed
     

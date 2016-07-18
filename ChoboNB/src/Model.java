@@ -200,4 +200,17 @@ public class Model {
             e.printStackTrace();
         }
     }
+    
+    public List<Integer> getKeyIndexFrom(String tableName) {
+        List<Integer> indexList = new LinkedList<Integer>();
+        List<String> keyColumns = this.primaryKeyColumns.get(tableName);
+        int index = 0;
+        for (String e : this.tableNames.get(tableName)) {
+            if (keyColumns.contains(e)) {
+                indexList.add(index);
+            }
+            index++;
+        }
+        return indexList;
+    }
 }
