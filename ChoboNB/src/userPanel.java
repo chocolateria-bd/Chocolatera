@@ -5,6 +5,7 @@
  */
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -175,13 +176,13 @@ public class userPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
         int selectedRow;
         if ((selectedRow = jTable2.getSelectedRow()) != -1) {
-            System.out.println(selectedRow);
-            List<String> objectsKeysToRemove = new LinkedList<String>();
-            for (Integer index : bs.model.getKeyIndexFrom(actualDBTable)) {
-                objectsKeysToRemove.add(model.getValueAt(selectedRow, 0).toString());
+            Map<String, String> objectsKeysToRemove = new HashMap<String, String>();
+            for (Map.Entry entry : bs.model.getKeyIndexFrom(actualDBTable).entrySet()) {
+                objectsKeysToRemove.put(entry.getValue().toString(), 
+                    "'" + model.getValueAt(selectedRow, (Integer)entry.getKey()).toString() + "'");
             }
             bs.model.removeRow(actualDBTable, objectsKeysToRemove);
-            // model.removeRow(selectedRow);
+            model.removeRow(selectedRow);
             // System.out.println("Succesfully removed from database");
         }
     }//GEN-LAST:event_eliminarRegistroActionPerformed

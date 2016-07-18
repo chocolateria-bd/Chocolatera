@@ -181,7 +181,6 @@ public class Model {
             Statement statement = this.connection.createStatement();
             String sql = String.format("DELETE FROM BD.%s WHERE %s;",
                     tableName, Joiner.on(" AND ").withKeyValueSeparator(" = ").join(keyValues));
-            System.out.println(sql);
             statement.executeUpdate(sql);
             // this.connection.commit();
         } catch(SQLException e) {
@@ -192,8 +191,7 @@ public class Model {
     public void addRow(String tableName, List<String> values){
         try{
             Statement st = this.connection.createStatement();
-            String sql;
-            sql = String.format("INSERT INTO DB.%s VALUES(%s)", tableName, Joiner.on(", ").join(values));
+            String sql = String.format("INSERT INTO DB.%s VALUES(%s)", tableName, Joiner.on(", ").join(values));
             st.executeUpdate(sql);
             System.out.println(sql);
         }catch(SQLException e){
@@ -201,17 +199,17 @@ public class Model {
         }
     }
     
-    public List<Integer> getKeyIndexFrom(String tableName) {
-        List<Integer> indexList = new LinkedList<Integer>();
+    public Map<Integer, String> getKeyIndexFrom(String tableName) {
+        Map<Integer, String> indexMap = new HashMap<Integer, String>();
         List<String> keyColumns = this.primaryKeyColumns.get(tableName);
         int index = 0;
         for (String e : this.tableNames.get(tableName)) {
             if (keyColumns.contains(e)) {
-                indexList.add(index);
+                indexMap.put((int)index, e);
             }
             index++;
         }
-        return indexList;
+        return indexMap;
     }
     
     
