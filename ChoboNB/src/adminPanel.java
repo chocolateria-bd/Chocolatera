@@ -165,7 +165,7 @@ public class adminPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_productosButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        formCliente.init();
+        Utils.initNewFrame(actualDBTable);
     }//GEN-LAST:event_addButtonActionPerformed
     
     public void updateDatabase(List<String> values){
