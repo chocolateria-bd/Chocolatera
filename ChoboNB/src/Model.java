@@ -193,7 +193,7 @@ public class Model {
         return result;
     }
     
-    public void removeRow(Object key, String tableName){
+    public void removeRow(Object key, String tableName) {
         List<Map<String, Object>> result = new LinkedList< Map<String, Object> >();
         try {
             Statement statement = this.connection.createStatement();
