@@ -200,7 +200,7 @@ public class userPanel extends javax.swing.JPanel {
         Map<String, List<String>> tableNames = bs.model.getTableNames();
         List<String> namesList = tableNames.get(tableName);
         System.out.println("Columnas de " + tableName + ": " + namesList);
-        updateTableModel(Utils.listOfListsToArray(bs.model.selectAllFromLoader(tableName)), Utils.listToArray(namesList));
+        updateTableModel(Utils.listOfListsToArray(bs.model.selectAllFromLoader(tableName), tableName), Utils.listToArray(namesList));
         System.out.println("Actualizacion Correcta con " + tableName);
     }
     
