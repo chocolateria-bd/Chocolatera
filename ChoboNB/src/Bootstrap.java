@@ -15,7 +15,7 @@ public class Bootstrap {
     public ChocoUI view = null;
     public Model model = null;
     
-    public Bootstrap(){
+    private Bootstrap(){
         model = new Model();
         view = ChocoUI.getInstance();
     }
@@ -31,15 +31,15 @@ public class Bootstrap {
         
         ChocoUI.init();
         instance = new Bootstrap();
-        
-           
+                   
         System.out.println("!! -- Initialization was correct.  -- !!");
         if (instance.view == null || instance.model == null) {
             System.out.println("- Instance is  null.");
         }
+
         
-        // model.initConnection("localhost","5432", "postgres", "pi3141592", "proyectobd");
-        // model.printDatabaseInfo();
+         instance.model.initConnection("localhost","5432", "postgres", "pi3141592", "proyectobd");
+         instance.model.printDatabaseInfo();
         // model.closeConnection();
     }
 }

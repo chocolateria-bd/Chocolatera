@@ -7,12 +7,14 @@ public class Model {
     private Connection connection;
     private String server, port, database, user, password, schema;
     private Map<String, List<String>> tableNames;
+    private Map<String, List<String>> primaryKeyColumns;
 
     /*Metodos para el manejo de la conexion */
 
      // hace la conexion con la bd
     public boolean initConnection(String server,String port,String user,String password,String database){
         this.tableNames = new HashMap<String, List<String>>();
+        this.primaryKeyColumns = new HashMap<String, List<String>>();
         boolean  band = false;
         String url;
         this.server = server;
@@ -55,7 +57,9 @@ public class Model {
 
         while (rs.next()) {
             this.tableNames.put(rs.getString("tablename"), new LinkedList<String>());
+            this.primaryKeyColumns.put(rs.getString("tablename"), new LinkedList<String>());
             getDatabaseColumnNames(rs.getString("tablename"));
+            getDatabasePrimaryKeyColumns(rs.getString("tablename"));
         }
     }
     
@@ -63,7 +67,6 @@ public class Model {
     private void getDatabaseColumnNames(String tableName)
     {
         try{
-            Collection<String> columns = new LinkedList<String>();
             DatabaseMetaData metadata = connection.getMetaData();
             ResultSet rs = metadata.getColumns(null, "bd", tableName, null);
             while(rs.next()){
@@ -74,10 +77,27 @@ public class Model {
             e.printStackTrace();
         }
     }
+    
+     //obtenemos el nombre de las columnas que son llaves primarias en las tablas
+    private void getDatabasePrimaryKeyColumns(String tableName){
+        try{
+            DatabaseMetaData metadata = connection.getMetaData();
+            ResultSet rs = metadata.getPrimaryKeys(null, "bd", tableName);
+            while(rs.next()){
+                this.primaryKeyColumns.get(tableName).add(rs.getString("COLUMN_NAME"));
+            }
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     //imprimir la información de la base de datos
     public void printDatabaseInfo(){
+        System.out.println("Tablas de la base de datos:");
         System.out.println(this.tableNames);
+        System.out.println("Llaves primarias de la base de datos");
+        System.out.println(this.primaryKeyColumns);
     }
 
     //cerramos la conexion con la base de datos (metodo)
