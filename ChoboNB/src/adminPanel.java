@@ -64,6 +64,7 @@ public class adminPanel extends javax.swing.JPanel {
         addButton = new javax.swing.JButton();
         productosButton = new javax.swing.JButton();
         clientesButton = new javax.swing.JButton();
+        empresaButton = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(74, 28));
 
@@ -108,6 +109,13 @@ public class adminPanel extends javax.swing.JPanel {
             }
         });
 
+        empresaButton.setText("Empresas");
+        empresaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                empresaButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,6 +130,8 @@ public class adminPanel extends javax.swing.JPanel {
                 .addComponent(productosButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(clientesButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(empresaButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -135,7 +145,8 @@ public class adminPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(productosButton)
-                    .addComponent(clientesButton)))
+                    .addComponent(clientesButton)
+                    .addComponent(empresaButton)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -150,7 +161,7 @@ public class adminPanel extends javax.swing.JPanel {
             }
             bs.model.removeRow(actualDBTable, objectsKeysToRemove);
             model.removeRow(selectedRow);
-            // System.out.println("Succesfully removed from database");
+             System.out.println("Succesfully removed from database");
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
@@ -167,6 +178,11 @@ public class adminPanel extends javax.swing.JPanel {
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         Utils.initNewFrame(actualDBTable);
     }//GEN-LAST:event_addButtonActionPerformed
+
+    private void empresaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empresaButtonActionPerformed
+        updateJTableWith("empresa");
+        actualDBTable = "empresa";
+    }//GEN-LAST:event_empresaButtonActionPerformed
     
     public void updateDatabase(List<String> values){
         DefaultTableModel tableModel = (DefaultTableModel)jTable1.getModel();
@@ -181,6 +197,7 @@ public class adminPanel extends javax.swing.JPanel {
         List<String> namesList = tableNames.get(tableName);
         System.out.println("Columnas de " + tableName + ": " + namesList);
         updateTableModel(Utils.listOfListsToArray(bs.model.selectAllFromLoader(tableName)), Utils.listToArray(namesList));
+        System.out.println("SelectAllFrom(): " +bs.model.selectAllFromLoader(tableName));
         System.out.println("Actualizacion Correcta con " + tableName);
     }
     
@@ -196,6 +213,7 @@ public class adminPanel extends javax.swing.JPanel {
     private javax.swing.JButton addButton;
     private javax.swing.JButton clientesButton;
     private javax.swing.JButton deleteButton;
+    private javax.swing.JButton empresaButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton productosButton;

@@ -221,8 +221,8 @@ public class Model {
             Statement st = this.connection.createStatement();
             String sql;
             sql = "SELECT * FROM BD.Producto WHERE valor=(SELECT MAX(valor) FROM BD.Producto)";
-        }catch(SQLException){
-            
+        }catch(SQLException e){
+            e.printStackTrace();
         }
     }
     

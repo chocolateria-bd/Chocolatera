@@ -41,7 +41,9 @@ public class Utils {
     
     public static void initNewFrame(String tableName) {
         if (tableName == "cliente"){
-            formCliente.init();
+            FormCliente.init();
+        }else if(tableName == "empresa"){
+            FormEmpresa.init();
         }
     }
     

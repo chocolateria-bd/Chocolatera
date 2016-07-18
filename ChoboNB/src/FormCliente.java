@@ -14,14 +14,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Victor
  */
-public class formCliente extends javax.swing.JFrame {
+public class FormCliente extends javax.swing.JFrame {
 
         
-    private static formCliente instance = null;
+    private static FormCliente instance = null;
     /**
      * Creates new form formCliente
      */
-    public formCliente() {
+    public FormCliente() {
         initComponents();
     }
 
@@ -139,14 +139,23 @@ public class formCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(formCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(formCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(formCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(formCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
+        /* Create and display the form */
+        /*
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormCliente().setVisible(true);
+            }
+        });
         //</editor-fold>
 
         /* Create and display the form */
@@ -162,9 +171,9 @@ public class formCliente extends javax.swing.JFrame {
     public static void init(){
         setBootstrap();
         initTheme();
-        instance = new formCliente();
+        instance = new FormCliente();
         instance.setVisible(true);
-        instance.setDefaultCloseOperation(formCliente.DISPOSE_ON_CLOSE);
+        instance.setDefaultCloseOperation(FormCliente.DISPOSE_ON_CLOSE);
     }
     
     public static void initTheme(){
@@ -181,18 +190,19 @@ public class formCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(formCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(formCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(formCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(formCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
     }
     
-    public static formCliente getInstance(){
+    public static FormCliente getInstance(){
         if (instance == null){
             init();
         }
