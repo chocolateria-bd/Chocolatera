@@ -175,7 +175,7 @@ public class Model {
         return result;
     }
     
-    public void removeRow(List<String> keyValues, String tableName){
+    public void removeRow(String tableName, List<String> keyValues){
         List<Map<String, Object>> result = new LinkedList< Map<String, Object> >();
         try {
             Statement statement = this.connection.createStatement();
@@ -190,11 +190,21 @@ public class Model {
         }
     }
     
-        public String parse(Collection<String> columnNames){
+    public void addRow(String tableName, List<String> values){
+        try{
+            Statement st = this.connection.createStatement();
+            String sql = String.format("INSERT INTO DB.%s VALUES(%s)", tableName, parse(values));
+            st.executeUpdate(sql);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    public String parse(Collection<String> columnNames){
         String result = "";
         Iterator i = columnNames.iterator();
         if(!columnNames.isEmpty()){
-            while(i.hasNext()){
+        while(i.hasNext()){
                 result += result + i.next();
                 if(i.hasNext()){
                     result += ", ";
