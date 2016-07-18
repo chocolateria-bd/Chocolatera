@@ -149,6 +149,7 @@ public class userPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+        // soy un comentario
     private void productosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productosButtonActionPerformed
         updateJTableWith("producto");
         actualDBTable = "producto";
