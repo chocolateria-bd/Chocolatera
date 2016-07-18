@@ -1,3 +1,15 @@
 INSERT INTO BD.Cliente VALUES (24569609, 'persona');
 INSERT INTO BD.Cliente VALUES (21456202, 'empresa');
-INSERT INTO BD.Cliente VALUES (21456202, 'empresa');
+INSERT INTO BD.Cliente VALUES (1, 'empresa');
+INSERT INTO BD.Cliente VALUES (2, 'persona');
+INSERT INTO BD.Cliente VALUES (3, 'empresa');
+INSERT INTO BD.Cliente VALUES (4, 'empresa');
+INSERT INTO BD.Cliente VALUES (50, 'persona');
+INSERT INTO BD.Cliente VALUES (46, 'empresa');
+INSERT INTO BD.Cliente VALUES (5, 'empresa');
+INSERT INTO BD.Cliente VALUES (54, 'persona');
+INSERT INTO BD.Cliente VALUES (7, 'persona');
+INSERT INTO BD.Cliente VALUES (8, 'persona');
+INSERT INTO BD.Cliente VALUES (9, 'empresa');
+INSERT INTO BD.Cliente VALUES (19, 'persona');
+INSERT INTO BD.Cliente VALUES (11, 'empresa');

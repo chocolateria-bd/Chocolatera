@@ -20,20 +20,22 @@ public class Utils {
         return newArray;
     }
     
-    public static String[][] listOfListsToArray(List<Map<String, String>> listOfMaps){
+    public static Object[][] listOfListsToArray(List<Map<String, Object>> listOfMaps){
         if (!listOfMaps.isEmpty()) {
-            String[][] tableOfObjects = new String[listOfMaps.size()][listOfMaps.get(0).size()];
+            Object[][] tableOfObjects = new String[listOfMaps.size()][listOfMaps.get(0).size()];
             for (int i = 0; i < listOfMaps.size(); i++) {
-                Map<String, String> map = listOfMaps.get(i);
+                Map<String, Object> map = listOfMaps.get(i);
                 int j = 0;
                 for(Map.Entry e : map.entrySet()){
                     tableOfObjects[i][j++] = e.getValue().toString();
-                    System.out.println("value: " + e.getValue());
                 }
             }
-            System.out.println("tabla: " + tableOfObjects[0][1]);
             return tableOfObjects;
         }
-        return new String[0][0];
+        return new Object[0][0];
+    }
+    
+    public static String getPrimaryKey(String tableName) {
+        return Constants.tablesPrimaryKeys.get(tableName);
     }
 }

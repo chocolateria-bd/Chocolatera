@@ -135,15 +135,15 @@ public class Model {
         return result;
     }
     
-    public  List<Map<String, String>> selectAllFromLoader(String tableName) {
-        List<Map<String, String>> result = new LinkedList< Map<String, String> >();
+    public  List<Map<String, Object>> selectAllFromLoader(String tableName) {
+        List<Map<String, Object>> result = new LinkedList< Map<String, Object> >();
         try {
             Statement st = this.connection.createStatement();
             String sql = "SELECT * FROM BD." + tableName + ";";
             ResultSet rs = st.executeQuery(sql);
             // para retornar un hashmap con (nombreColumna => lista de filas) en lugar de un ResultSet
             while (rs.next()) {
-                Map tempHashMap = new HashMap<String, String>();
+                Map tempHashMap = new HashMap<String, Object>();
                 for(String e : this.tableNames.get(tableName)){
                     tempHashMap.put(e, rs.getString(e));
                 }
@@ -171,5 +171,18 @@ public class Model {
             result += "*";
         }
         return result;
+    }
+    
+    public void removeRow(Object key, String tableName){
+        List<Map<String, Object>> result = new LinkedList< Map<String, Object> >();
+        try {
+            Statement statement = this.connection.createStatement();
+            String sql = String.format("DELETE FROM BD.%s WHERE %s = '%s';", tableName, Utils.getPrimaryKey(tableName), key);
+            System.out.println(sql);
+            statement.executeUpdate(sql);
+            // this.connection.commit();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
