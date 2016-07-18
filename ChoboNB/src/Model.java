@@ -188,14 +188,18 @@ public class Model {
         }
     }
     
-    public void addRow(String tableName, List<String> values){
-        try{
+    public void addRow(String tableName, List<String> values) {
+        for (int i=0; i < values.size(); i++) {
+            values.set(i, Utils.stringify(values.get(i)));
+        }
+        try {
             Statement st = this.connection.createStatement();
-            String sql = String.format("INSERT INTO DB.%s VALUES(%s)", tableName, Joiner.on(", ").join(values));
+            String sql = String.format("INSERT INTO BD.%s VALUES(%s)", tableName, Joiner.on(", ").join(values));
             st.executeUpdate(sql);
             System.out.println(sql);
-        }catch(SQLException e){
-            e.printStackTrace();
+        } catch(SQLException e) {
+            System.out.println("ERROR AL AGREGAR");
+            // e.printStackTrace();
         }
     }
     

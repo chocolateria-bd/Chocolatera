@@ -38,4 +38,8 @@ public class Utils {
     public static String getPrimaryKey(String tableName) {
         return Constants.tablesPrimaryKeys.get(tableName);
     }
+    
+    public static String stringify(String string){
+        return "'" + string + "'";
+    }
 }
