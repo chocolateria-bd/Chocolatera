@@ -1,3 +1,4 @@
+import com.google.common.base.Joiner;
 import java.sql.*;
 import java.util.*;
 
@@ -175,13 +176,11 @@ public class Model {
         return result;
     }
     
-    public void removeRow(String tableName, List<String> keyValues){
-        List<Map<String, Object>> result = new LinkedList< Map<String, Object> >();
+    public void removeRow(String tableName, Map<String,String> keyValues){
         try {
             Statement statement = this.connection.createStatement();
-            String sql = String.format("DELETE FROM BD.%s WHERE %s = '%s';",
-                    tableName, parse(this.primaryKeyColumns.get(tableName)), 
-                    parse(keyValues));
+            String sql = String.format("DELETE FROM BD.%s WHERE %s;",
+                    tableName, Joiner.on(" AND ").withKeyValueSeparator(" = ").join(keyValues));
             System.out.println(sql);
             statement.executeUpdate(sql);
             // this.connection.commit();
@@ -193,26 +192,12 @@ public class Model {
     public void addRow(String tableName, List<String> values){
         try{
             Statement st = this.connection.createStatement();
-            String sql = String.format("INSERT INTO DB.%s VALUES(%s)", tableName, parse(values));
+            String sql;
+            sql = String.format("INSERT INTO DB.%s VALUES(%s)", tableName, Joiner.on(", ").join(values));
             st.executeUpdate(sql);
+            System.out.println(sql);
         }catch(SQLException e){
             e.printStackTrace();
         }
-    }
-    
-    public String parse(Collection<String> columnNames){
-        String result = "";
-        Iterator i = columnNames.iterator();
-        if(!columnNames.isEmpty()){
-        while(i.hasNext()){
-                result += result + i.next();
-                if(i.hasNext()){
-                    result += ", ";
-                }else{
-                    result += " ";
-                }
-            }
-        }
-        return result;
     }
 }

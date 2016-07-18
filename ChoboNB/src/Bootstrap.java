@@ -36,7 +36,6 @@ public class Bootstrap {
         if (instance.view == null || instance.model == null) {
             System.out.println("- Instance is  null.");
         }
-
         
         //instance.model.initConnection("localhost","5432", "postgres", "pi3141592", "proyectobd");
         //instance.model.printDatabaseInfo();
