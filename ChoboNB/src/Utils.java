@@ -38,4 +38,14 @@ public class Utils {
     public static String getPrimaryKey(String tableName) {
         return Constants.tablesPrimaryKeys.get(tableName);
     }
+    
+    public static void initNewFrame(String tableName) {
+        if (tableName == "cliente"){
+            formCliente.init();
+        }
+    }
+    
+    public static String stringify(String string){
+        return "'" + string + "'";
+    }
 }

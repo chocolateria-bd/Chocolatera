@@ -93,7 +93,7 @@ public class loginPanel extends javax.swing.JPanel {
         String pass = passwordField.getText();
         if (bs.model.initConnection("localhost","5432", user, pass, "proyectobd")){
             System.out.println("Login Exitoso");
-            bs.view.swapPanel("userPanel");
+            bs.view.swapPanel("adminPanel");
         } else {
             System.out.println("Error al logear");
         }
