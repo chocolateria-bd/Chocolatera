@@ -174,12 +174,37 @@ public class Model {
         }            
         return result;
     }
-
-    public String parseColumnNames(Collection<String> columnNames){
+    
+    public void removeRow(String tableName, List<String> keyValues){
+        List<Map<String, Object>> result = new LinkedList< Map<String, Object> >();
+        try {
+            Statement statement = this.connection.createStatement();
+            String sql = String.format("DELETE FROM BD.%s WHERE %s = '%s';",
+                    tableName, parse(this.primaryKeyColumns.get(tableName)), 
+                    parse(keyValues));
+            System.out.println(sql);
+            statement.executeUpdate(sql);
+            // this.connection.commit();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void addRow(String tableName, List<String> values){
+        try{
+            Statement st = this.connection.createStatement();
+            String sql = String.format("INSERT INTO DB.%s VALUES(%s)", tableName, parse(values));
+            st.executeUpdate(sql);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    public String parse(Collection<String> columnNames){
         String result = "";
         Iterator i = columnNames.iterator();
         if(!columnNames.isEmpty()){
-            while(i.hasNext()){
+        while(i.hasNext()){
                 result += result + i.next();
                 if(i.hasNext()){
                     result += ", ";
@@ -187,22 +212,7 @@ public class Model {
                     result += " ";
                 }
             }
-        }else{
-            result += "*";
         }
         return result;
-    }
-    
-    public void removeRow(Object key, String tableName) {
-        List<Map<String, Object>> result = new LinkedList< Map<String, Object> >();
-        try {
-            Statement statement = this.connection.createStatement();
-            String sql = String.format("DELETE FROM BD.%s WHERE %s = '%s';", tableName, Utils.getPrimaryKey(tableName), key);
-            System.out.println(sql);
-            statement.executeUpdate(sql);
-            // this.connection.commit();
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
     }
 }
