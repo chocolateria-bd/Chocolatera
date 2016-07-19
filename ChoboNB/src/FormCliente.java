@@ -57,7 +57,7 @@ public class FormCliente extends javax.swing.JFrame {
             }
         });
 
-        tipoLabel.setText("Tipo:");
+        tipoLabel.setText("Tipo(persona o empresa):");
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
         jLabel2.setText("Nuevo Cliente");
@@ -112,12 +112,10 @@ public class FormCliente extends javax.swing.JFrame {
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         adminPanel panel = adminPanel.getInstance();
-        
         List<String> values = new LinkedList<String>() {{
             add(codigoField.getText());
             add(tipoField.getText());
         }};
-        
         panel.updateDatabase(values);
     }//GEN-LAST:event_submitButtonActionPerformed
 

@@ -65,7 +65,9 @@ public class adminPanel extends javax.swing.JPanel {
         productosButton = new javax.swing.JButton();
         clientesButton = new javax.swing.JButton();
         empresaButton = new javax.swing.JButton();
-        productoButton = new javax.swing.JButton();
+        maquinariaButton = new javax.swing.JButton();
+        cursoButton = new javax.swing.JButton();
+        empleadoButton = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(74, 28));
 
@@ -117,10 +119,24 @@ public class adminPanel extends javax.swing.JPanel {
             }
         });
 
-        productoButton.setText("Productos");
-        productoButton.addActionListener(new java.awt.event.ActionListener() {
+        maquinariaButton.setText("Maquinaria");
+        maquinariaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                productoButtonActionPerformed(evt);
+                maquinariaButtonActionPerformed(evt);
+            }
+        });
+
+        cursoButton.setText("Curso");
+        cursoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cursoButtonActionPerformed(evt);
+            }
+        });
+
+        empleadoButton.setText("Empleado");
+        empleadoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                empleadoButtonActionPerformed(evt);
             }
         });
 
@@ -130,34 +146,43 @@ public class adminPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 97, Short.MAX_VALUE))
+                .addGap(0, 103, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(productosButton)
+                .addComponent(productosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(clientesButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(empresaButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(maquinariaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(productoButton)
+                .addComponent(cursoButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(empleadoButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(productosButton)
+                            .addComponent(clientesButton)
+                            .addComponent(empresaButton)
+                            .addComponent(maquinariaButton)
+                            .addComponent(cursoButton)
+                            .addComponent(empleadoButton))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(productosButton)
-                    .addComponent(clientesButton)
-                    .addComponent(empresaButton)
-                    .addComponent(productoButton)))
+                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -195,10 +220,20 @@ public class adminPanel extends javax.swing.JPanel {
         actualDBTable = "empresa";
     }//GEN-LAST:event_empresaButtonActionPerformed
 
-    private void productoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productoButtonActionPerformed
-        updateJTableWith("producto");
-        actualDBTable = "producto";
-    }//GEN-LAST:event_productoButtonActionPerformed
+    private void maquinariaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maquinariaButtonActionPerformed
+        updateJTableWith("maquina");
+        actualDBTable = "maquina";
+    }//GEN-LAST:event_maquinariaButtonActionPerformed
+
+    private void cursoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cursoButtonActionPerformed
+        updateJTableWith("curso");
+        actualDBTable = "curso";
+    }//GEN-LAST:event_cursoButtonActionPerformed
+
+    private void empleadoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empleadoButtonActionPerformed
+        updateJTableWith("empleado");
+        actualDBTable = "empleado";
+    }//GEN-LAST:event_empleadoButtonActionPerformed
     
     public void updateDatabase(List<String> values){
         DefaultTableModel tableModel = (DefaultTableModel)jTable1.getModel();
@@ -228,11 +263,13 @@ public class adminPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton clientesButton;
+    private javax.swing.JButton cursoButton;
     private javax.swing.JButton deleteButton;
+    private javax.swing.JButton empleadoButton;
     private javax.swing.JButton empresaButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton productoButton;
+    private javax.swing.JButton maquinariaButton;
     private javax.swing.JButton productosButton;
     // End of variables declaration//GEN-END:variables
 }

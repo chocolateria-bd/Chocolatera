@@ -47,14 +47,16 @@ public class Utils {
     }
     
     public static void initNewFrame(String tableName) {
-        if ("cliente".equals(tableName)) {
-            //FormCliente.init();
-        } else if("empresa".equals(tableName)) {
+        if ("cliente".equals(tableName)){
+            FormCliente.init();
+        }else if("empresa".equals(tableName)){
             FormEmpresa.init();
-        } else if("maquinaria".equals(tableName)) {
+        }else if("maquina".equals(tableName)){
             FormMaquinaria.init();
-        } else if("producto".equals(tableName)) {
-            FormProducto.init();
+        }else if("curso".equals(tableName)){
+            FormCurso.init();
+        }else if("empleado".equals(tableName)){
+            FormEmpleado.init();
         }
     }
     
