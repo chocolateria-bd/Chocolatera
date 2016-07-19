@@ -98,9 +98,6 @@ public class Model {
         String role = "";
         Statement st = connection.createStatement();
         String sql = String.format(
-            "SELECT a.oid AS member_oid, pg_get_userbyid(oid) AS member_name FROM pg_authid a WHERE pg_has_role('%s', a.oid, 'member');",
-            this.user);
-        sql = String.format(
             "SELECT oid, rolname FROM pg_roles WHERE pg_has_role( '%s', oid, 'member');",
             this.user
         );
@@ -222,7 +219,8 @@ public class Model {
         }
         try {
             Statement st = this.connection.createStatement();
-            String sql = String.format("INSERT INTO BD.%s VALUES(%s)", tableName, Joiner.on(", ").join(values));
+            String sql = String.format("INSERT INTO BD.%s VALUES(%s)", tableName, Joiner.on(", ")
+                               .join(values));
             st.executeUpdate(sql);
             System.out.println(sql);
         } catch(SQLException e) {
@@ -244,14 +242,51 @@ public class Model {
         return indexMap;
     }
     
-    public void getProductWithMaxValue(){
+    public List<Map<String, String>> getProductWithMaxValue(){
+        List<Map<String,String>> rows = new LinkedList<Map<String, String>>();
         try{
             Statement st = this.connection.createStatement();
             String sql;
             sql = "SELECT * FROM BD.Producto WHERE valor=(SELECT MAX(valor) FROM BD.Producto)";
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                Map tempHashMap = new HashMap<String, String>();
+                for(String e : this.tableNames.get("producto")){
+                    tempHashMap.put(e, rs.getString(e));
+                }
+                rows.add(tempHashMap);
+            }
         }catch(SQLException e){
             e.printStackTrace();
         }
+        return rows;
+    }
+    
+    public List<Map<String, String>> consulta1(){
+        List<Map<String,String>> rows = new LinkedList<Map<String, String>>();
+        try{
+            Statement st = this.connection.createStatement();
+            String sql;
+            sql = "SELECT pc.etapa, e.ci FROM BD.procesa pc " +
+                "	INNER JOIN BD.producto p " +
+                "	ON p.codigo = pc.codigo " +
+                "	INNER JOIN BD.empleado e " +
+                "	ON pc.ci = e.ci\n" +
+                "	INNER JOIN BD.empresa empr " +
+                "	ON empr.rif = e.rif " +
+                "WHERE p.valor = (SELECT MAX(valor) FROM BD.producto);";
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                Map tempHashMap = new HashMap<String, String>();
+                for(String e : this.tableNames.get("producto")){
+                    tempHashMap.put(e, rs.getString(e));
+                }
+                rows.add(tempHashMap);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return rows;
     }
     
     

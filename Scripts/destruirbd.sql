@@ -5,14 +5,14 @@ DROP USER chocousuario;
 REVOKE ALL PRIVILEGES ON DATABASE proyectobd FROM administrador;
 REVOKE ALL PRIVILEGES ON SCHEMA bd FROM administrador;
 REVOKE ALL PRIVILEGES ON
-BD.producto
+BD.producto, BD.cliente, BD.empresa, BD.maquina, BD.curso, BD.empleado, BD.vende, BD.persona, BD.procesa
 FROM administrador;
 DROP ROLE administrador;
 
 REVOKE ALL PRIVILEGES ON DATABASE proyectobd FROM usuario;
 REVOKE ALL PRIVILEGES ON SCHEMA bd FROM usuario;
 REVOKE ALL PRIVILEGES ON
-BD.producto
+BD.producto, BD.cliente, BD.empresa, BD.maquina, BD.curso, BD.empleado, BD.vende, BD.persona, BD.procesa
 FROM usuario;
 DROP ROLE usuario;
 
@@ -40,7 +40,7 @@ DROP DOMAIN BD.T_etapa;
 DROP DOMAIN BD.T_maquina;
 DROP DOMAIN BD.T_unidades;
 DROP DOMAIN BD.T_cliente;
-DROP DOMAIN BD.T_time;
+-- DROP DOMAIN BD.T_time
 -- DROP DOMAIN BD.T_sueldo;
 DROP DOMAIN BD.T_moneda;
 DROP DOMAIN BD.T_fecha;

@@ -199,14 +199,14 @@ CREATE ROLE administrador;
 GRANT ALL ON DATABASE proyectobd TO administrador;
 GRANT ALL ON SCHEMA bd TO administrador;
 GRANT ALL ON TABLE
-BD.producto
+BD.producto, BD.cliente, BD.empresa, BD.maquina, BD.curso, BD.empleado, BD.vende, BD.persona, BD.procesa
 to administrador;
 
 CREATE ROLE usuario;
 GRANT ALL ON DATABASE proyectobd TO usuario;
 GRANT ALL ON SCHEMA bd TO usuario;
-GRANT ALL ON TABLE
-BD.producto
+GRANT SELECT ON TABLE
+BD.producto, BD.cliente, BD.empresa, BD.maquina, BD.curso, BD.empleado, BD.vende, BD.persona, BD.procesa
 to usuario;
 
 CREATE USER chocoadmin IN ROLE administrador PASSWORD '123';

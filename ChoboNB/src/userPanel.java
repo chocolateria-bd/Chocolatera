@@ -59,8 +59,12 @@ public class userPanel extends javax.swing.JPanel {
         productosButton = new javax.swing.JButton();
         clienteButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
-        agregarRegistro = new javax.swing.JButton();
-        eliminarRegistro = new javax.swing.JButton();
+        empresasButton = new javax.swing.JButton();
+        cursoButton = new javax.swing.JButton();
+        facturaButton = new javax.swing.JButton();
+        maquinariaButton = new javax.swing.JButton();
+        personaButton = new javax.swing.JButton();
+        empleadoButton = new javax.swing.JButton();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -82,7 +86,7 @@ public class userPanel extends javax.swing.JPanel {
             }
         });
 
-        clienteButton.setText("Cliente");
+        clienteButton.setText("Clientes");
         clienteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clienteButtonActionPerformed(evt);
@@ -96,12 +100,45 @@ public class userPanel extends javax.swing.JPanel {
             }
         });
 
-        agregarRegistro.setText("Agregar");
-
-        eliminarRegistro.setText("Eliminar");
-        eliminarRegistro.addActionListener(new java.awt.event.ActionListener() {
+        empresasButton.setText("Empresas");
+        empresasButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarRegistroActionPerformed(evt);
+                empresasButtonActionPerformed(evt);
+            }
+        });
+
+        cursoButton.setText("Curso");
+        cursoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cursoButtonActionPerformed(evt);
+            }
+        });
+
+        facturaButton.setText("Facturas");
+        facturaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                facturaButtonActionPerformed(evt);
+            }
+        });
+
+        maquinariaButton.setText("Maquinaria");
+        maquinariaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                maquinariaButtonActionPerformed(evt);
+            }
+        });
+
+        personaButton.setText("Personas");
+        personaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                personaButtonActionPerformed(evt);
+            }
+        });
+
+        empleadoButton.setText("Empleados");
+        empleadoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                empleadoButtonActionPerformed(evt);
             }
         });
 
@@ -110,44 +147,48 @@ public class userPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(productosButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(maquinariaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(clienteButton)
+                    .addComponent(personaButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(productosButton)
-                        .addGap(28, 28, 28)
-                        .addComponent(clienteButton)
-                        .addGap(32, 32, 32)
-                        .addComponent(agregarRegistro)
+                        .addComponent(empresasButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(eliminarRegistro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 20, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(cursoButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(facturaButton))
+                    .addComponent(empleadoButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane2)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(productosButton)
-                                .addComponent(clienteButton))
-                            .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(22, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(agregarRegistro)
-                            .addComponent(eliminarRegistro))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(maquinariaButton)
+                            .addComponent(personaButton)
+                            .addComponent(empleadoButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(productosButton)
+                            .addComponent(clienteButton)
+                            .addComponent(empresasButton)
+                            .addComponent(cursoButton)
+                            .addComponent(facturaButton)))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -172,20 +213,35 @@ public class userPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_exitButtonActionPerformed
 
-    private void eliminarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarRegistroActionPerformed
-        DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
-        int selectedRow;
-        if ((selectedRow = jTable2.getSelectedRow()) != -1) {
-            Map<String, String> objectsKeysToRemove = new HashMap<String, String>();
-            for (Map.Entry entry : bs.model.getKeyIndexFrom(actualDBTable).entrySet()) {
-                objectsKeysToRemove.put(entry.getValue().toString(), 
-                    "'" + model.getValueAt(selectedRow, (Integer)entry.getKey()).toString() + "'");
-            }
-            bs.model.removeRow(actualDBTable, objectsKeysToRemove);
-            model.removeRow(selectedRow);
-            // System.out.println("Succesfully removed from database");
-        }
-    }//GEN-LAST:event_eliminarRegistroActionPerformed
+    private void maquinariaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maquinariaButtonActionPerformed
+        updateJTableWith("maquina");
+        actualDBTable = "maquina";
+    }//GEN-LAST:event_maquinariaButtonActionPerformed
+
+    private void empresasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empresasButtonActionPerformed
+        updateJTableWith("empresa");
+        actualDBTable = "empresa";
+    }//GEN-LAST:event_empresasButtonActionPerformed
+
+    private void cursoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cursoButtonActionPerformed
+        updateJTableWith("curso");
+        actualDBTable = "curso";
+    }//GEN-LAST:event_cursoButtonActionPerformed
+
+    private void facturaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facturaButtonActionPerformed
+        updateJTableWith("vende");
+        actualDBTable = "vende";
+    }//GEN-LAST:event_facturaButtonActionPerformed
+
+    private void personaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_personaButtonActionPerformed
+        updateJTableWith("persona");
+        actualDBTable = "persona";
+    }//GEN-LAST:event_personaButtonActionPerformed
+
+    private void empleadoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empleadoButtonActionPerformed
+        updateJTableWith("empleado");
+        actualDBTable = "empleado";
+    }//GEN-LAST:event_empleadoButtonActionPerformed
     
     public Bootstrap bs = null;
     
@@ -205,12 +261,16 @@ public class userPanel extends javax.swing.JPanel {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton agregarRegistro;
     private javax.swing.JButton clienteButton;
-    private javax.swing.JButton eliminarRegistro;
+    private javax.swing.JButton cursoButton;
+    private javax.swing.JButton empleadoButton;
+    private javax.swing.JButton empresasButton;
     private javax.swing.JButton exitButton;
+    private javax.swing.JButton facturaButton;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
+    private javax.swing.JButton maquinariaButton;
+    private javax.swing.JButton personaButton;
     private javax.swing.JButton productosButton;
     // End of variables declaration//GEN-END:variables
 

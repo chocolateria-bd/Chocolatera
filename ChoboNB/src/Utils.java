@@ -42,6 +42,23 @@ public class Utils {
         return new Object[0][0];
     }
     
+    public static Object[][] listOfListsToArrayFromMap(List<Map<String, String>> listOfMaps){
+        setBootstrap();
+        if (!listOfMaps.isEmpty()) {
+            Object[][] tableOfObjects = new String[listOfMaps.size()][listOfMaps.get(0).size()];
+            for (int i = 0; i < listOfMaps.size(); i++) {
+                Map<String, String> map = listOfMaps.get(i);
+                int j = 0;
+                
+                for (Map.Entry e : map.entrySet()) {
+                    tableOfObjects[i][j++] = e.getValue();
+                }
+            }
+            return tableOfObjects;
+        }
+        return new Object[0][0];
+    }
+    
     public static String getPrimaryKey(String tableName) {
         return Constants.tablesPrimaryKeys.get(tableName);
     }
