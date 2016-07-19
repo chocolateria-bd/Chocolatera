@@ -57,6 +57,8 @@ public class Utils {
             FormCurso.init();
         }else if("empleado".equals(tableName)){
             FormEmpleado.init();
+        }else if("producto".equals(tableName)){
+            FormProducto.init();
         }
     }
     
