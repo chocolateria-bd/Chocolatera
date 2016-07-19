@@ -13,10 +13,10 @@ public class Model {
     /*Metodos para el manejo de la conexion */
 
      // hace la conexion con la bd
-    public int initConnection(String server,String port,String user,String password,String database){
+    public boolean initConnection(String server,String port,String user,String password,String database){
         this.tableNames = new HashMap<String, List<String>>();
         this.primaryKeyColumns = new HashMap<String, List<String>>();
-        int band = 0;
+        boolean band = false;
         String url;
         this.server = server;
         this.port = port;
@@ -31,11 +31,11 @@ public class Model {
             try {
                 Class.forName("org.postgresql.Driver");
                 connection = DriverManager.getConnection(url, user, password);
-                band = 1;
+                band = true;
             } catch (ClassNotFoundException e) {
                 System.out.println("Driver no encontrado");
                 // e.printStackTrace();
-            }	
+            }
             
             try{
                 getDatabaseTableNames();
@@ -91,6 +91,17 @@ public class Model {
         {
             e.printStackTrace();
         }
+    }
+    
+    public String getUserRole() throws SQLException {
+        System.out.println("Erroreee");
+        String role = "";
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery("SELECT groname as role FROM pg_group;");
+        if (rs.next()) {
+            role = rs.getString("groname");
+        }
+        return role;
     }
 
     //imprimir la información de la base de datos
