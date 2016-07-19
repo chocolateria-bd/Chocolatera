@@ -53,6 +53,10 @@ public class Utils {
             FormEmpresa.init();
         }else if("maquina".equals(tableName)){
             FormMaquinaria.init();
+        }else if("curso".equals(tableName)){
+            FormCurso.init();
+        }else if("empleado".equals(tableName)){
+            FormEmpleado.init();
         }
     }
     

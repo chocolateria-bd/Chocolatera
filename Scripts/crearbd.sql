@@ -27,6 +27,7 @@ CREATE DOMAIN BD.T_cliente tcliente; /* dominio para la hora (solo hora no fecha
 CREATE DOMAIN BD.T_unidades tunidades; /*dominio para la hora (solo hora no fecha) */
 CREATE DOMAIN BD.T_maquina tmaquina;
 CREATE DOMAIN BD.T_etapa tetapa;
+CREATE DOMAIN BD.T_daysOfTheWeek daysOfTheWeek;
 
 
 CREATE TABLE BD.Cliente(
@@ -80,7 +81,7 @@ CREATE TABLE BD.Empleado(
 
 CREATE TABLE BD.Curso(
 	nombre BD.T_string,
-	dia BD.daysOfTheWeek,
+	dia BD.T_daysOfTheWeek,
 	inicio BD.T_fecha,
 	fin BD.T_fecha,
 	primary key (nombre)
