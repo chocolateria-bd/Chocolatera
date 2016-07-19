@@ -94,12 +94,29 @@ public class Model {
     }
     
     public String getUserRole() throws SQLException {
-        System.out.println("Erroreee");
+        
         String role = "";
         Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery("SELECT groname as role FROM pg_group;");
-        if (rs.next()) {
-            role = rs.getString("groname");
+        String sql = String.format(
+            "SELECT a.oid AS member_oid, pg_get_userbyid(oid) AS member_name FROM pg_authid a WHERE pg_has_role('%s', a.oid, 'member');",
+            this.user);
+        sql = String.format(
+            "SELECT oid, rolname FROM pg_roles WHERE pg_has_role( '%s', oid, 'member');",
+            this.user
+        );
+        System.out.println(sql);
+        System.out.println("Error Verificando esto 1");
+        ResultSet rs = st.executeQuery(sql);
+        System.out.println("Error Verificando esto 2");
+        while (rs.next()) {
+            System.out.println("Inside While");
+            String actualRole = rs.getString("rolname");
+            
+            if ("administrador".equals(actualRole)) {
+                return "administrador";
+            } else if ("usuario".equals(actualRole)) {
+                role = "usuario";
+            }
         }
         return role;
     }

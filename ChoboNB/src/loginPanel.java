@@ -105,10 +105,12 @@ public class loginPanel extends javax.swing.JPanel {
                 } else if (userRole.equals("usuario")) {
                     System.out.println("Bienvenido Usuario!");
                     bs.view.swapPanel("userPanel");
+                } else {
+                    System.out.println("Usuario no valido!");
                 }
             
             } catch (SQLException ex) {
-                System.out.println("Error al verificar ripo de usuario");
+                System.out.println("Error al verificar tipo de usuario");
             }
         } else {
             System.out.println("Error al logear");

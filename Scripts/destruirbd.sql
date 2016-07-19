@@ -1,13 +1,4 @@
-WITH RECURSIVE cte AS (
-   SELECT oid FROM pg_roles WHERE rolname = 'administrador'
 
-   UNION ALL
-   SELECT m.roleid
-   FROM   cte
-   JOIN   pg_auth_members m ON m.member = cte.oid
-)
-SELECT oid FROM cte;
-SELECT a.oid FROM pg_authid a WHERE pg_has_role('usuario', a.oid, 'member');
 DROP USER chocoadmin;
 DROP USER chocousuario;
 
