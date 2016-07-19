@@ -22,7 +22,6 @@ CREATE DOMAIN BD.T_fecha timestamp
 		CHECK (VALUE >= '1900-01-01');/*dominio de tipo fecha para todas las fechas 0000-00-00 empieza en 1900-01-01 */
 CREATE DOMAIN BD.T_moneda float
 		CHECK (value >= 0.0);/* dominio para el sueldo y los precios*/
-CREATE DOMAIN BD.T_time time;/* dominio para la hora (solo hora no fecha) */
 CREATE DOMAIN BD.T_cliente tcliente; /* dominio para la hora (solo hora no fecha) */
 CREATE DOMAIN BD.T_unidades tunidades; /*dominio para la hora (solo hora no fecha) */
 CREATE DOMAIN BD.T_maquina tmaquina;
@@ -172,10 +171,9 @@ CREATE TABLE BD.Vende(
 	tipo BD.T_cliente,
 	codigo_producto BD.T_codigo,
 	fecha BD.T_fecha,
-	hora BD.T_time,
 	cantidad int,
 	precio BD.T_moneda,
-	primary key (rif,codigo_cliente,codigo_producto,fecha,hora),
+	primary key (rif,codigo_cliente,codigo_producto,fecha),
 	FOREIGN KEY (codigo_producto) REFERENCES BD.Producto ON DELETE CASCADE,
 	FOREIGN KEY (codigo_cliente) REFERENCES BD.Cliente ON DELETE CASCADE,
 	FOREIGN KEY (rif) REFERENCES BD.Empresa ON DELETE CASCADE
