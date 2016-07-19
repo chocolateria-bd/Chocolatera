@@ -1,5 +1,8 @@
 
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.postgresql.util.PSQLException;
 
 /*
@@ -92,19 +95,23 @@ public class loginPanel extends javax.swing.JPanel {
         String user = usernameField.getText();
         String pass = passwordField.getText();
         
-        int userType = bs.model.initConnection("localhost","5432", user, pass, "proyectobd");
-        switch (userType) {
-            case 1:
-                System.out.println("Bienvenido Administrador!");
-                bs.view.swapPanel("adminPanel");
-                break;
-            case 2:
-                System.out.println("Bienvenido Usuario!");
-                bs.view.swapPanel("adminPanel");
-                break;
-            default:
-                System.out.println("Error al logear");
-                break;
+        if (bs.model.initConnection("localhost","5432", user, pass, "proyectobd")) {
+            try {
+                String userRole = bs.model.getUserRole();
+                
+                if (userRole.equals("administrador")) {
+                    System.out.println("Bienvenido Administrador!");
+                    bs.view.swapPanel("adminPanel");
+                } else if (userRole.equals("usuario")) {
+                    System.out.println("Bienvenido Usuario!");
+                    bs.view.swapPanel("userPanel");
+                }
+            
+            } catch (SQLException ex) {
+                System.out.println("Error al verificar ripo de usuario");
+            }
+        } else {
+            System.out.println("Error al logear");
         }
     }//GEN-LAST:event_loginButtonActionPerformed
     

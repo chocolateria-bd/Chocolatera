@@ -198,5 +198,18 @@ CREATE TABLE BD.Pais_evento(
 CREATE ROLE administrador;
 GRANT ALL ON DATABASE proyectobd TO administrador;
 GRANT ALL ON SCHEMA bd TO administrador;
-GRANT ALL ON TABLE BD.producto to administrador;
-CREATE USER usuario1 IN ROLE administrador PASSWORD '123';
+GRANT ALL ON TABLE
+BD.producto
+to administrador;
+
+CREATE ROLE usuario;
+GRANT ALL ON DATABASE proyectobd TO usuario;
+GRANT ALL ON SCHEMA bd TO usuario;
+GRANT ALL ON TABLE
+BD.producto
+to usuario;
+
+CREATE USER chocoadmin IN ROLE administrador PASSWORD '123';
+-- ALTER ROLE chodoAdmin with SUPERUSER;
+
+CREATE USER chocousuario IN ROLE usuario PASSWORD '1234';
