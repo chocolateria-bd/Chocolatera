@@ -48,10 +48,10 @@ public class Utils {
     
     public static void initNewFrame(String tableName) {
         if ("cliente".equals(tableName)){
-            //FormCliente.init();
+            FormCliente.init();
         }else if("empresa".equals(tableName)){
             FormEmpresa.init();
-        }else if("maquinaria".equals(tableName)){
+        }else if("maquina".equals(tableName)){
             FormMaquinaria.init();
         }
     }

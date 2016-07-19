@@ -65,6 +65,7 @@ public class adminPanel extends javax.swing.JPanel {
         productosButton = new javax.swing.JButton();
         clientesButton = new javax.swing.JButton();
         empresaButton = new javax.swing.JButton();
+        maquinariaButton = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(74, 28));
 
@@ -116,6 +117,13 @@ public class adminPanel extends javax.swing.JPanel {
             }
         });
 
+        maquinariaButton.setText("Maquinaria");
+        maquinariaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                maquinariaButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,6 +140,8 @@ public class adminPanel extends javax.swing.JPanel {
                 .addComponent(clientesButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(empresaButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(maquinariaButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -146,7 +156,8 @@ public class adminPanel extends javax.swing.JPanel {
                     .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(productosButton)
                     .addComponent(clientesButton)
-                    .addComponent(empresaButton)))
+                    .addComponent(empresaButton)
+                    .addComponent(maquinariaButton)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -183,6 +194,11 @@ public class adminPanel extends javax.swing.JPanel {
         updateJTableWith("empresa");
         actualDBTable = "empresa";
     }//GEN-LAST:event_empresaButtonActionPerformed
+
+    private void maquinariaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maquinariaButtonActionPerformed
+        updateJTableWith("maquina");
+        actualDBTable = "maquina";
+    }//GEN-LAST:event_maquinariaButtonActionPerformed
     
     public void updateDatabase(List<String> values){
         DefaultTableModel tableModel = (DefaultTableModel)jTable1.getModel();
@@ -216,6 +232,7 @@ public class adminPanel extends javax.swing.JPanel {
     private javax.swing.JButton empresaButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton maquinariaButton;
     private javax.swing.JButton productosButton;
     // End of variables declaration//GEN-END:variables
 }

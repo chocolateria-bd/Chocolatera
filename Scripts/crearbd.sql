@@ -12,6 +12,7 @@ CREATE TYPE tcliente AS ENUM ('persona', 'empresa');
 CREATE TYPE tunidades AS ENUM('miligramos', 'gramos', 'kilogramos', 'mililitros', 'litros');
 CREATE TYPE tmaquina AS ENUM('maquina1');
 CREATE TYPE tetapa AS ENUM('etapa1');
+CREATE TYPE daysOfTheWeek AS ENUM('lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo');
 
 CREATE DOMAIN BD.T_identificador varchar(9);
 CREATE DOMAIN BD.T_codigo smallint
@@ -79,7 +80,7 @@ CREATE TABLE BD.Empleado(
 
 CREATE TABLE BD.Curso(
 	nombre BD.T_string,
-	dia BD.T_fecha,   /*dia deberia llamarse fecha xd*/
+	dia BD.daysOfTheWeek,
 	inicio BD.T_fecha,
 	fin BD.T_fecha,
 	primary key (nombre)
