@@ -13,3 +13,16 @@ INSERT INTO BD.Cliente VALUES (8, 'persona');
 INSERT INTO BD.Cliente VALUES (9, 'empresa');
 INSERT INTO BD.Cliente VALUES (19, 'persona');
 INSERT INTO BD.Cliente VALUES (11, 'empresa');
+
+INSERT INTO BD.Producto VALUES(1, 'Chocolate', 'miligramos', 10.5);
+INSERT INTO BD.Producto VALUES(2, 'Postre Gazorpazorfield', 'litros', 3.14);
+INSERT INTO BD.Producto VALUES(3, 'Galletas Chocolate', 'litros', 14.0);
+INSERT INTO BD.Producto VALUES(4, 'Chocolate especial 42', 'gramos', 2.3);
+INSERT INTO BD.Producto VALUES(5, 'Torta Numero 4', 'kilogramos', 0.5);
+INSERT INTO BD.Producto VALUES(6, 'Especial Choco', 'gramos', 6.6);
+INSERT INTO BD.Producto VALUES(7, 'Choco Oderi', 'mililitros', 45.1);
+INSERT INTO BD.Producto VALUES(8, 'Torta Chocolatosa', 'gramos', 8.9);
+INSERT INTO BD.Producto VALUES(9, 'ChocoChocolate', 'gramos', 44.5);
+INSERT INTO BD.Producto VALUES(10, 'ChocoPlus', 'mililitros', 13.37);
+INSERT INTO BD.Producto VALUES(11, 'Galletas Especiales', 'litros', 10.5);
+INSERT INTO BD.Producto VALUES(12, 'Postre Numero 6', 'kilogramos', 10.5);

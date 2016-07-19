@@ -194,3 +194,9 @@ CREATE TABLE BD.Pais_evento(
 	primary key (nombre_pais,nombre_evento,fecha_evento),
 	FOREIGN KEY (nombre_evento,fecha_evento) REFERENCES BD.Evento ON DELETE CASCADE
 );
+
+CREATE ROLE administrador;
+GRANT ALL ON DATABASE proyectobd TO administrador;
+GRANT ALL ON SCHEMA bd TO administrador;
+GRANT ALL ON TABLE BD.producto to administrador;
+CREATE USER usuario1 IN ROLE administrador PASSWORD '123';

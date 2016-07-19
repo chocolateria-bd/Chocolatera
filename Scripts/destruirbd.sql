@@ -1,4 +1,6 @@
 
+DROP USER usuario1;
+DROP ROLE administrador;
 
 DROP TABLE BD.Pais_evento CASCADE;
 DROP TABLE BD.Premio CASCADE;

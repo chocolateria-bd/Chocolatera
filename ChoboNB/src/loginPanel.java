@@ -91,11 +91,20 @@ public class loginPanel extends javax.swing.JPanel {
         bs = Bootstrap.getInstance();
         String user = usernameField.getText();
         String pass = passwordField.getText();
-        if (bs.model.initConnection("localhost","5432", user, pass, "proyectobd")){
-            System.out.println("Login Exitoso");
-            bs.view.swapPanel("adminPanel");
-        } else {
-            System.out.println("Error al logear");
+        
+        int userType = bs.model.initConnection("localhost","5432", user, pass, "proyectobd");
+        switch (userType) {
+            case 1:
+                System.out.println("Bienvenido Administrador!");
+                bs.view.swapPanel("adminPanel");
+                break;
+            case 2:
+                System.out.println("Bienvenido Usuario!");
+                bs.view.swapPanel("adminPanel");
+                break;
+            default:
+                System.out.println("Error al logear");
+                break;
         }
     }//GEN-LAST:event_loginButtonActionPerformed
     

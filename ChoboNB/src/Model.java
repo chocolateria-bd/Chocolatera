@@ -13,10 +13,10 @@ public class Model {
     /*Metodos para el manejo de la conexion */
 
      // hace la conexion con la bd
-    public boolean initConnection(String server,String port,String user,String password,String database){
+    public int initConnection(String server,String port,String user,String password,String database){
         this.tableNames = new HashMap<String, List<String>>();
         this.primaryKeyColumns = new HashMap<String, List<String>>();
-        boolean  band = false;
+        int band = 0;
         String url;
         this.server = server;
         this.port = port;
@@ -31,7 +31,7 @@ public class Model {
             try {
                 Class.forName("org.postgresql.Driver");
                 connection = DriverManager.getConnection(url, user, password);
-                band = true;
+                band = 1;
             } catch (ClassNotFoundException e) {
                 System.out.println("Driver no encontrado");
                 // e.printStackTrace();
