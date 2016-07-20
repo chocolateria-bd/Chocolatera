@@ -4,6 +4,13 @@ Proyecto de base de datos
 Este fue un proyecto realizado para Bases de Datos. En este proyecto usamos el lenguaje Java, y una arquitectura basada
 en el patron MVC (Modelo, Vista, Controlador). El proyecto fue realizado con el IDE NetBeans.
 
+### Estructura
+- En el archivo [Model.java](ChocoNB/src/Model.java), trabajamos la conexion a la base de datos y las consultas.
+- El archivo [Bootstrap](ChocoNB/src/Bootstrap.java), es el entry point de la aplicacion, y es una clase que sigue el patron
+Singleton, y guarda una instancia de la vista principal y tambien de el modelo, entonces cuando se quiere pedir data al modelo
+las clases de la interfaz usan su instancia de Bootstrap para accesar al modelo.
+- El archivo [Utils.java](ChocoNB/src/Utils.java) tenemos funciones auxiliares que usamos en el proyecto.
+
 ### Librerias adicionales usadas:
 - El driver JDBC para poder realizar la conexion a la bd mediante postgres.
 - Guava, una libreria de Google para Java. Incluimos esta libreria ya que provee ciertas funciones auxiliares
@@ -20,7 +27,7 @@ Para compilar el proyecto de manera local, es necesario instalar Netbeans, luego
 Usamos la clase Joiner de guava, mediante la cual podiamos unir cadenas que estaban en una lista o mapa (diccionario o arreglo asociativo)
 con un formato especificado.
 
-En el siguiente ejemplo, extraido del archivo [Model.java](ChocoNB/src/Model.java), especificamente del metodo removeRow,
+En el siguiente ejemplo, extraido del archivo [Model.java](ChocoNB/src/Model.java#L204), especificamente del metodo removeRow,
 el cual toma el nombre de una tabla o relacion de la bases de datos, y un mapa que mapea cadenas a cadenas, en el cual guardamos
 los nombres de las columnas claves y de los valores dados. La idea es ubicar la tupla identificada por estos valores y eliminarla
 en la base de datos. Entonces la siguiente linea hace justo lo que necesitamos, que es unir cada par de elementos llave, valor del mapa
